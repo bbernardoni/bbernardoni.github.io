@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Bennett Bernardoni</title>
+
+		<link rel="shortcut icon" href="../res/BBIcon.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BBIcon.ico" type="image/x-icon">
+	
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="../index.html">&lt;Bennett Bernardoni&gt;</a>
+				</div>
+				<div>
+					<ul class="nav navbar-nav">
+						<li><a href="mailto:bwberna2@illinois.edu"><i class="fa fa-envelope fa-lg pull-left"></i>Email (bwberna2@illinois.edu)</a></li>
+						<li><a href="../res/Resume.pdf"><i class="fa fa-file-text fa-lg pull-left"></i>Resume</a></li>
+						<li><a href="https://www.linkedin.com/pub/bennett-bernardoni/105/990/52"><i class="fa fa-linkedin fa-lg pull-left"></i>LinkedIn</a></li>
+						<li><a href="https://github.com/bbernardoni"><i class="fa fa-github fa-lg pull-left"></i>Github</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Swerve Drive System Control</h2>
+					<p>
+						This project was created for the FIRST Robotics Competition (FRC), a competition where teams of students have six weeks to build a robot and compete
+						in regional events. My team decided that it wanted to create a prototype for a swerve drive, a very maneuverable design where each wheel can both 
+						spin in place as well as roll forward and backward. In order to control this new drive, I undertook the development of the code for the swerve drive. 
+					</p>
+					<h3>Development Process</h3>
+					<p>
+						The first step of code development was to determine how the wheels should be positioned. I researched what drive modes other teams use in order to 
+						quickly determine which system works the best. Another team had been using a swerve drive for many years, so I decided to look at how they control 
+						their robot. To better understand the team’s code, I made diagrams of their representation of their swerve drive. After fully comprehending their 
+						strategy, I decided to emulate one aspect of the team’s idea.
+					</p>
+					<img src="Swerve Fun Page.png" alt="Swerve Code Development Sketches">
+					<p>
+						Finally, it was time to write the first version of the code. I started by making a PID algorithm that would position the steer motors. 
+						The first iteration had five drive modes, including an original mode. 
+					</p>
+					<p>
+						Since the robot was not finished upon the completion of the first iteration of the code, debugging did not begin until the start of build season.
+						To debug the code I broke it into small parts to find bugs without destroying any motors. However, the final mechanical design for the swerve drive
+						was modified to no longer allow for continuous rotation. To compensate for this, I had to add code to avoid the dead stops which the wheel could 
+						not physically move though.
+					</p>
+					<p>
+						At this point the code started to get too complex for one file, so I split it into three separate files to add a layer of abstraction.
+						The MServo class controlled the steer motor and steer encoder, the SwerveModule class controlled an MServo class in addition to a drive motor,
+						and the Swerve class uses four SwerveModule classes to simulate the four swerve modules.
+					</p>
+					<img src="Swerve Class Diagram.png" alt="Swerve Class Diagram">
+					<p>
+						In order to fix elusive logic errors, I created a way to simulate what the robot would do given a set of joystick values. It then prints all relevant
+						variables, so I can determine if the program was functioning as it should. This simulation was very useful for the development process and I was able
+						to discover many bugs without needing to physically moving the motor and risk destroying it.
+					</p>
+					<img src="GNU Simulation.png" alt="GNU Simulation">
+					<p>
+						After finally developing a stable version of the code, I continued to improve upon it. I added two more drive modes, one of which improved driver control, 
+						and other used a gyro to make the robot more intuitive to drive. After a screw jammed a motor during a meeting, I created safety code to detect when a 
+						motor was malfunctioning and to respond accordingly.
+					</p>
+					<h3>Final Code Description</h3>
+					<p>
+						The code is divided into three main classes: MServo, SwerveModule, and Swerve.
+					</p>
+					<p>
+						MServo (a.k.a. Meta Servo) deals with controlling the Steer motor using a passed in target and an encoder. The main function is SetAngle which uses a PID 
+						algorithm to turn the wheel to the angle that is passed in. Also in this function, the code checks to make sure that the motor is not running into a dead stop. 
+					</p>
+					<p>
+						SwerveModule manages the MServo in conjunction with the drive motor. The main function of this class is CtrlModule which uses MServo to position the
+						angle of the motor and sets the drive motor to the speed that is passed in. CtrlModule also sees if it is faster to turn to the angle 180 degrees 
+						away and switches the drive motor direction, then it goes to the passed in target.
+					</p>
+					<p>
+						The final class is Swerve which deals with four SwerveModules and uses the joysticks to determine at what angle the wheels need to be turned to and at what speed.
+						The Drive function is called by the mainline code to drive the robot. It starts out by converting the joystick values into angles and speeds which gets passed
+						into the SwerveModule objects. The way the joystick values get converted into angles and speeds changes with different drive modes.
+					</p>
+					<p>
+						The Swerve code has seven drive modes: lock, tank, translate, car, steer, kine, and gyro modes.
+					</p>
+					<ul>
+						<li>Lock mode is used to “lock” the robot in place. The angles of the wheels are passed in and it turns the wheels to them. This is used when I want 
+							the robot to not be pushed around.</li>
+						<li>Tank mode operates exactly a tank drive. The left Y axis controls the left drive motors and vice-versa.</li>
+						<li>Translate mode only translates and does not rotate. The X axis translates sideways and the Y axis translates forward and backward.</li>
+						<li>Car mode moves the robot like a car. The Y axis makes the robot move forward and backward, and the X axis steers like a steering wheel.
+							Unlike a car if the X axis is at the maximum or minimum than the robot will turn in place.</li>
+						<li>Steer mode has one stick for translation like translation mode and one axis for rotation. Rotation only turns the wheel,
+							so the translation will need to be applied to actually move the robot. This is because the rotation acts like a steering wheel.</li>
+						<li>Kine mode is similar to steer mode but it allows the robot to move using only the rotation axis.</li>
+						<li>Gyro is the same as kine but instead of forward joystick motion making the robot move forward relative to itself,
+							it makes the robot go forward relative to the field.</li>
+						<li>Gyro Wheel mode is similar to gyro mode but the rotation stick is used to point to the direction the robot is meant to face.</li>
+					</ul>
+					<img src="Swerve Diagram.png" alt="Swerve Geometric Diagram">
+					<p>
+						For the translate, car, steer, kine, and gyro modes, the Swerve class uses an algorithm, described below, to calculate the angles and speeds of the wheels.
+						The algorithm begins with translate X, translate Y, and rotation values being passed in. Pivot Angle is calculated by taking the direction of translation 
+						minus PI/2 radians. Turn Angle is calculated by converting the rotation value from [-1, 1] to [0, 2*PI]. Using the Turn angle and the sensitivity, which is
+						a passed in constant, I solve the blue triangle for dZ. The blue triangle is a right triangle so using trigonometry:
+ 					</p>
+					<p>&#9;tan⁡(<var>TurnAngle</var>) = <var>dZ</var>/<var>Sensitivity</var></p>
+					<p>Solving for dZ:</p>
+					<p>&#9;<var>dZ</var>=tan⁡(<var>TurnAngle</var>)*<var>Sensitivity</var></p>
+					<p>Next, solving for dX and dY by using the red right triangle.</p>
+					<p>&#9;<var>dX=<var>dZ</var>*cos(<var>PivotAngle</var>)</p>
+					<p>&#9;<var>dY=<var>dZ</var>*sin⁡(<var>PivotAngle</var>)</p>
+					<p>
+						Now I have our X and Y coordinates for the point of rotation. Using half the robot length and half the robot width I can determine the distances
+						to the pivot points for each of the wheels. The wheels are pointed perpendicular to the line connecting the pivot point and the wheel. 
+						The speeds of the wheels are the relative distances of the wheel to the pivot point. 
+					</p>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js"></script>
+	</body>
+</html>
