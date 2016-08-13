@@ -124,12 +124,12 @@
 						minus PI/2 radians. Turn Angle is calculated by converting the rotation value from [-1, 1] to [0, 2*PI]. Using the Turn angle and the sensitivity, which is
 						a passed in constant, I solve the blue triangle for dZ. The blue triangle is a right triangle so using trigonometry:
  					</p>
-					<p>&nbsp;tan⁡(<var>TurnAngle</var>) = <var>dZ</var>/<var>Sensitivity</var></p>
+					<p>&nbsp;tan⁡(<em>TurnAngle</em>) = <em>dZ</em>/<em>Sensitivity</em></p>
 					<p>Solving for dZ:</p>
-					<p>&nbsp;<var>dZ</var>=tan⁡(<var>TurnAngle</var>)*<var>Sensitivity</var></p>
+					<p>&nbsp;<em>dZ</em>=tan⁡(<em>TurnAngle</em>)*<em>Sensitivity</em></p>
 					<p>Next, solving for dX and dY by using the red right triangle.</p>
-					<p>&nbsp;<var>dX</var>=<var>dZ</var>*cos(<var>PivotAngle</var>)</p>
-					<p>&nbsp;<var>dY</var>=<var>dZ</var>*sin⁡(<var>PivotAngle</var>)</p>
+					<p>&nbsp;<em>dX</em>=<em>dZ</em>*cos(<em>PivotAngle</em>)</p>
+					<p>&nbsp;<em>dY</em>=<em>dZ</em>*sin⁡(<em>PivotAngle</em>)</p>
 					<p>
 						Now I have our X and Y coordinates for the point of rotation. Using half the robot length and half the robot width I can determine the distances
 						to the pivot points for each of the wheels. The wheels are pointed perpendicular to the line connecting the pivot point and the wheel. 
