@@ -54,7 +54,7 @@
 						their robot. To better understand the team’s code, I made diagrams of their representation of their swerve drive. After fully comprehending their 
 						strategy, I decided to emulate one aspect of the team’s idea.
 					</p>
-					<img src="Swerve Fun Page.png" style="padding-bottom: 10px;" alt="Swerve Code Development Sketches">
+					<img src="Swerve Fun Page.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Code Development Sketches">
 					<p>
 						Finally, it was time to write the first version of the code. I started by making a PID algorithm that would position the steer motors. 
 						The first iteration had five drive modes, including an original mode. 
@@ -70,13 +70,13 @@
 						The MServo class controlled the steer motor and steer encoder, the SwerveModule class controlled an MServo class in addition to a drive motor,
 						and the Swerve class uses four SwerveModule classes to simulate the four swerve modules.
 					</p>
-					<img src="Swerve Class Diagram.png" style="padding-bottom: 10px;" alt="Swerve Class Diagram">
+					<img src="Swerve Class Diagram.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Class Diagram">
 					<p>
 						In order to fix elusive logic errors, I created a way to simulate what the robot would do given a set of joystick values. It then prints all relevant
 						variables, so I can determine if the program was functioning as it should. This simulation was very useful for the development process and I was able
 						to discover many bugs without needing to physically moving the motor and risk destroying it.
 					</p>
-					<img src="GNU Simulation.png" style="padding-bottom: 10px;" alt="GNU Simulation">
+					<img src="GNU Simulation.png" style="padding-bottom: 10px;" class="img-responsive" alt="GNU Simulation">
 					<p>
 						After finally developing a stable version of the code, I continued to improve upon it. I added two more drive modes, one of which improved driver control, 
 						and other used a gyro to make the robot more intuitive to drive. After a screw jammed a motor during a meeting, I created safety code to detect when a 
@@ -117,7 +117,7 @@
 							it makes the robot go forward relative to the field.</li>
 						<li>Gyro Wheel mode is similar to gyro mode but the rotation stick is used to point to the direction the robot is meant to face.</li>
 					</ul>
-					<img src="Swerve Diagram.png" style="padding-bottom: 10px;" alt="Swerve Geometric Diagram">
+					<img src="Swerve Diagram.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Geometric Diagram">
 					<p>
 						For the translate, car, steer, kine, and gyro modes, the Swerve class uses an algorithm, described below, to calculate the angles and speeds of the wheels.
 						The algorithm begins with translate X, translate Y, and rotation values being passed in. Pivot Angle is calculated by taking the direction of translation 
