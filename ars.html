@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>ARS</title>
+
+<script>
+var state = new Array(6);
+for (var i = 0; i < 6; i++) {
+	state[i] = new Array(9).fill(i);
+}
+
+document.onkeydown = function (e) { 
+	e = e || window.event;
+	
+	switch(e.keyCode){
+	case 74: U();  break; // 'J'  U
+	case 70: Ui(); break; // 'F'  U'
+	case 83: D();  break; // 'S'  D
+	case 76: Di(); break; // 'L'  D'
+	case 73: R();  break; // 'I'  R
+	case 75: Ri(); break; // 'K'  R'
+	case 68: L();  break; // 'D'  L
+	case 69: Li(); break; // 'E'  L'
+	case 72: F();  break; // 'H'  F
+	case 71: Fi(); break; // 'G'  F'
+	case 87: B();  break; // 'W'  B
+	case 79: Bi(); break; // 'O'  B'
+	case 89: // 'Y'  x
+	case 84: // 'T'  x
+        R();  M();  Li(); break;
+	case 78: // 'N'  x'
+	case 66: // 'B'  x'
+        Ri(); Mi(); L();  break;
+	case 186:U();  E();  Di(); break; // ';'  y
+	case 65: Ui(); Ei(); D();  break; // 'A'  y'
+	case 80: F();  S();  Bi(); break; // 'P'  z
+	case 81: Fi(); Si(); B();  break; // 'Q'  z'
+	case 85: R();  M();  break; // 'U'  r
+	case 77: Ri(); Mi(); break; // 'M'  r'
+	case 86: Mi(); L();  break; // 'V'  l
+	case 82: M();  Li(); break; // 'R'  l'
+	case 32: scramble(); break;
+	case 27: case 8: solve(); break;
+	case 13: controls(); break;
+	default:
+		//alert(e.keyCode);
+		break;
+	}
+    showCube();
+};
+
+function scramble(){
+	for (var i = 0; i < 40; i++) {
+		var rand = Math.floor(Math.random()*18);
+		switch(rand){
+		case 0:  U();      break;
+		case 1:  Ui();     break;
+		case 2:  U(); U(); break;
+		case 3:  D();      break;
+		case 4:  Di();     break;
+		case 5:  D(); D(); break;
+		case 6:  R();      break;
+		case 7:  Ri();     break;
+		case 8:  R(); R(); break;
+		case 9:  L();      break;
+		case 10: Li();     break;
+		case 11: L(); L(); break;
+		case 12: F();      break;
+		case 13: Fi();     break;
+		case 14: F(); F(); break;
+		case 15: B();      break;
+		case 16: Bi();     break;
+		case 17: B(); B(); break;
+		}
+	}
+}
+function solve(){
+	for (var i = 0; i < 6; i++) {
+		state[i].fill(i);
+	}
+}
+
+function U(){
+	cwTurn(0);
+}
+function Ui(){
+	U(); U(); U();
+}
+function D(){
+	cwTurn(3);
+}
+function Di(){
+	D(); D(); D();
+}
+function R(){
+	cwTurn(4);
+}
+function Ri(){
+	R(); R(); R();
+}
+function L(){
+	cwTurn(1);
+}
+function Li(){
+	L(); L(); L();
+}
+function F(){
+	cwTurn(2);
+}
+function Fi(){
+	F(); F(); F();
+}
+function B(){
+	cwTurn(5);
+}
+function Bi(){
+	B(); B(); B();
+}
+
+function E(){
+	cycle4(5,3,4,3,2,3,1,3);
+	cycle4(5,4,4,4,2,4,1,4);
+	cycle4(5,5,4,5,2,5,1,5);
+}
+function Ei(){
+	E(); E(); E();
+}
+function M(){
+	cycle4(5,7,3,1,2,1,0,1);
+	cycle4(5,4,3,4,2,4,0,4);
+	cycle4(5,1,3,7,2,7,0,7);
+}
+function Mi(){
+	M(); M(); M();
+}
+function S(){
+	cycle4(4,1,3,5,1,7,0,3);
+	cycle4(4,4,3,4,1,4,0,4);
+	cycle4(4,7,3,3,1,1,0,5);
+}
+function Si(){
+	S(); S(); S();
+}
+
+var sLUT1 = [[0,1,2],[2,5,8],[8,7,6],[6,3,0]];
+var sLUT2 = [[0,0,0,0],[3,3,1,3],[0,1,2,3],[2,2,2,2],[3,1,1,1],[0,3,2,1]];
+function cwTurn(f){
+	var f0 = (f+1)%6;
+	var f1 = 5-(f%3)*2;
+	var f2 = (f+4)%6;
+	var f3 = ((7-f)%3)*2;
+	for (var i = 0; i < 3; i++) {
+		cycle4(f0,sLUT1[sLUT2[f][0]][i],f1,sLUT1[sLUT2[f][1]][i],f2,sLUT1[sLUT2[f][2]][i],f3,sLUT1[sLUT2[f][3]][i]);
+	}
+	cycle4(f,0,f,2,f,8,f,6);
+	cycle4(f,1,f,5,f,7,f,3);
+}
+function cycle4(f0,s0,f1,s1,f2,s2,f3,s3){
+	var temp = state[f3][s3];
+	state[f3][s3] = state[f2][s2];
+	state[f2][s2] = state[f1][s1];
+	state[f1][s1] = state[f0][s0];
+	state[f0][s0] = temp;
+}
+
+function showCube(){
+	for (var i = 0; i < 6; i++) {
+		for (var j = 0; j < 9; j++) {
+			colorSticker(i,j,state[i][j]);
+		}
+	}
+	var solvedStr = "        ";
+	if(solved()){
+		solvedStr = "Solved!!";
+	}
+	document.getElementById("solved").innerHTML = solvedStr;
+}
+function colorSticker(f,s,c){
+	var baseID = "f"+f+"s"+s+"e";
+	var cChar;
+	switch(c){
+	case 0: cChar=" "; break;
+	case 1: cChar="~"; break;
+	case 2: cChar="#"; break;
+	case 3: cChar="."; break;
+	case 4: cChar="*"; break;
+	case 5: cChar="&"; break;
+	}
+	if(f==4){ //slanted face
+		document.getElementById(baseID+0).innerHTML = Array(2).join(cChar);
+		document.getElementById(baseID+1).innerHTML = Array(3).join(cChar);
+		document.getElementById(baseID+2).innerHTML = Array(4).join(cChar);
+		document.getElementById(baseID+3).innerHTML = Array(3).join(cChar);
+		document.getElementById(baseID+4).innerHTML = Array(2).join(cChar);
+	}else{
+		for (var i = 0; i < 3; i++) {
+			document.getElementById(baseID+i).innerHTML = Array(7).join(cChar);
+		}
+	}
+}
+function solved(){
+	for(var i = 0; i < 6; i++) {
+		for(var j = 1; j < 9; j++) {
+			if(state[i][j] !== state[i][0])
+				return false;
+		}
+	}
+	return true;
+}
+
+function controls(){
+	var cont1 = document.getElementById("controls1");
+	var cont2 = document.getElementById("controls2");
+	if(cont1.style.display == "none"){
+		cont1.style.display = "";
+		cont2.style.display = "none";
+	}else{
+		cont1.style.display = "none";
+		cont2.style.display = "";
+	}
+}
+</script>
+
+</head>
+<body>
+
+<pre>
+                                       +--------------------------+--------------------------+
+                                      / <span id="f0s0e0">      </span> / <span id="f0s1e0">      </span> / <span id="f0s2e0">      </span> /| <span id="f5s0e0">&&&&&&</span> | <span id="f5s1e0">&&&&&&</span> | <span id="f5s2e0">&&&&&&</span> |
+                                     / <span id="f0s0e1">      </span> / <span id="f0s1e1">      </span> / <span id="f0s2e1">      </span> /<span id="f4s2e0">*</span>| <span id="f5s0e1">&&&&&&</span> | <span id="f5s1e1">&&&&&&</span> | <span id="f5s2e1">&&&&&&</span> |
+                                    / <span id="f0s0e2">      </span> / <span id="f0s1e2">      </span> / <span id="f0s2e2">      </span> /<span id="f4s2e1">**</span>| <span id="f5s0e2">&&&&&&</span> | <span id="f5s1e2">&&&&&&</span> | <span id="f5s2e2">&&&&&&</span> |
+                                   /--------+--------+--------+<span id="f4s2e2">***</span>|--------+--------+--------|
+                                  / <span id="f0s3e0">      </span> / <span id="f0s4e0">      </span> / <span id="f0s5e0">      </span> /|<span id="f4s2e3">**</span>/| <span id="f5s3e0">&&&&&&</span> | <span id="f5s4e0">&&&&&&</span> | <span id="f5s5e0">&&&&&&</span> |
+          <span id="solved">Solved!!</span>               / <span id="f0s3e1">      </span> / <span id="f0s4e1">      </span> / <span id="f0s5e1">      </span> /<span id="f4s1e0">*</span>|<span id="f4s2e4">*</span>/<span id="f4s5e0">*</span>| <span id="f5s3e1">&&&&&&</span> | <span id="f5s4e1">&&&&&&</span> | <span id="f5s5e1">&&&&&&</span> |
+                                / <span id="f0s3e2">      </span> / <span id="f0s4e2">      </span> / <span id="f0s5e2">      </span> /<span id="f4s1e1">**</span>|/<span id="f4s5e1">**</span>| <span id="f5s3e2">&&&&&&</span> | <span id="f5s4e2">&&&&&&</span> | <span id="f5s5e2">&&&&&&</span> |
+                               /--------+--------+--------+<span id="f4s1e2">***</span>|<span id="f4s5e2">***</span>|--------+--------+--------|
+                              / <span id="f0s6e0">      </span> / <span id="f0s7e0">      </span> / <span id="f0s8e0">      </span> /|<span id="f4s1e3">**</span>/|<span id="f4s5e3">**</span>/| <span id="f5s6e0">&&&&&&</span> | <span id="f5s7e0">&&&&&&</span> | <span id="f5s8e0">&&&&&&</span> |
+                             / <span id="f0s6e1">      </span> / <span id="f0s7e1">      </span> / <span id="f0s8e1">      </span> /<span id="f4s0e0">*</span>|<span id="f4s1e4">*</span>/<span id="f4s4e0">*</span>|<span id="f4s5e4">*</span>/<span id="f4s8e0">*</span>| <span id="f5s6e1">&&&&&&</span> | <span id="f5s7e1">&&&&&&</span> | <span id="f5s8e1">&&&&&&</span> |
+                            / <span id="f0s6e2">      </span> / <span id="f0s7e2">      </span> / <span id="f0s8e2">      </span> /<span id="f4s0e1">**</span>|/<span id="f4s4e1">**</span>|/<span id="f4s8e1">**</span>| <span id="f5s6e2">&&&&&&</span> | <span id="f5s7e2">&&&&&&</span> | <span id="f5s8e2">&&&&&&</span> |
++--------------------------+--------+--------+--------|<span id="f4s0e2">***</span>|<span id="f4s4e2">***</span>|<span id="f4s8e2">***</span>|--------------------------+
+| <span id="f1s0e0">~~~~~~</span> | <span id="f1s1e0">~~~~~~</span> | <span id="f1s2e0">~~~~~~</span> | <span id="f2s0e0">######</span> | <span id="f2s1e0">######</span> | <span id="f2s2e0">######</span> |<span id="f4s0e3">**</span>/|<span id="f4s4e3">**</span>/|<span id="f4s8e3">**</span>/
+| <span id="f1s0e1">~~~~~~</span> | <span id="f1s1e1">~~~~~~</span> | <span id="f1s2e1">~~~~~~</span> | <span id="f2s0e1">######</span> | <span id="f2s1e1">######</span> | <span id="f2s2e1">######</span> |<span id="f4s0e4">*</span>/<span id="f4s3e0">*</span>|<span id="f4s4e4">*</span>/<span id="f4s7e0">*</span>|<span id="f4s8e4">*</span>/
+| <span id="f1s0e2">~~~~~~</span> | <span id="f1s1e2">~~~~~~</span> | <span id="f1s2e2">~~~~~~</span> | <span id="f2s0e2">######</span> | <span id="f2s1e2">######</span> | <span id="f2s2e2">######</span> |/<span id="f4s3e1">**</span>|/<span id="f4s7e1">**</span>|/
+|--------+--------+--------+--------+--------+--------|<span id="f4s3e2">***</span>|<span id="f4s7e2">***</span>/
+| <span id="f1s3e0">~~~~~~</span> | <span id="f1s4e0">~~~~~~</span> | <span id="f1s5e0">~~~~~~</span> | <span id="f2s3e0">######</span> | <span id="f2s4e0">######</span> | <span id="f2s5e0">######</span> |<span id="f4s3e3">**</span>/|<span id="f4s7e3">**</span>/
+| <span id="f1s3e1">~~~~~~</span> | <span id="f1s4e1">~~~~~~</span> | <span id="f1s5e1">~~~~~~</span> | <span id="f2s3e1">######</span> | <span id="f2s4e1">######</span> | <span id="f2s5e1">######</span> |<span id="f4s3e4">*</span>/<span id="f4s6e0">*</span>|<span id="f4s7e4">*</span>/
+| <span id="f1s3e2">~~~~~~</span> | <span id="f1s4e2">~~~~~~</span> | <span id="f1s5e2">~~~~~~</span> | <span id="f2s3e2">######</span> | <span id="f2s4e2">######</span> | <span id="f2s5e2">######</span> |/<span id="f4s6e1">**</span>|/
+|--------+--------+--------+--------+--------+--------|<span id="f4s6e2">***</span>/
+| <span id="f1s6e0">~~~~~~</span> | <span id="f1s7e0">~~~~~~</span> | <span id="f1s8e0">~~~~~~</span> | <span id="f2s6e0">######</span> | <span id="f2s7e0">######</span> | <span id="f2s8e0">######</span> |<span id="f4s6e3">**</span>/
+| <span id="f1s6e1">~~~~~~</span> | <span id="f1s7e1">~~~~~~</span> | <span id="f1s8e1">~~~~~~</span> | <span id="f2s6e1">######</span> | <span id="f2s7e1">######</span> | <span id="f2s8e1">######</span> |<span id="f4s6e4">*</span>/
+| <span id="f1s6e2">~~~~~~</span> | <span id="f1s7e2">~~~~~~</span> | <span id="f1s8e2">~~~~~~</span> | <span id="f2s6e2">######</span> | <span id="f2s7e2">######</span> | <span id="f2s8e2">######</span> |/
++--------------------------+--------+--------+--------+
+                           | <span id="f3s0e0">......</span> | <span id="f3s1e0">......</span> | <span id="f3s2e0">......</span> |
+                           | <span id="f3s0e1">......</span> | <span id="f3s1e1">......</span> | <span id="f3s2e1">......</span> |
+                           | <span id="f3s0e2">......</span> | <span id="f3s1e2">......</span> | <span id="f3s2e2">......</span> |
+                           |--------+--------+--------|
+                           | <span id="f3s3e0">......</span> | <span id="f3s4e0">......</span> | <span id="f3s5e0">......</span> |
+                           | <span id="f3s3e1">......</span> | <span id="f3s4e1">......</span> | <span id="f3s5e1">......</span> |
+                           | <span id="f3s3e2">......</span> | <span id="f3s4e2">......</span> | <span id="f3s5e2">......</span> |
+                           |--------+--------+--------|
+                           | <span id="f3s6e0">......</span> | <span id="f3s7e0">......</span> | <span id="f3s8e0">......</span> |
+                           | <span id="f3s6e1">......</span> | <span id="f3s7e1">......</span> | <span id="f3s8e1">......</span> |
+                           | <span id="f3s6e2">......</span> | <span id="f3s7e2">......</span> | <span id="f3s8e2">......</span> |
+                           +--------------------------+
+
+
+<span id="controls1">Press Enter to show controls</span>
+<span id="controls2" style="display: none;">Space: Scramble
+Esc/Backspace: Solve
+Enter: Hide Controls
+J: U    F: U'   S: D    L: D'
+I: R    K: R'   D: L    E: L'
+H: F    G: F'   W: B    O: B'
+Y/T: x          N/B: x'
+;: y    A: y'   P: z    Q: z'
+U: r    M: r'   V: l    R: l'
+</span>
+</pre>
+
+</body>
+</html>
