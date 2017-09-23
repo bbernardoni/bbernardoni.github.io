@@ -1,0 +1,29 @@
+.no-margin {
+	margin: 0;
+}
+.dark {
+	color: #fff;
+	background-color: #333;
+}
+.card {
+	float: left;
+	margin-right: 10px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: white;
+}
+.navbar-default .navbar-toggle:hover {
+	background-color: #ef0000;
+}
+.navbar-default .navbar-toggle:focus {
+	background-color: #a50000;
+}
+.pad-bot {
+	padding-bottom: 20px;
+}
+	
+@media (min-width: 768px) and (max-width: 991px) {
+	.no-right-sm {
+		padding-right: 0;
+	}
+}

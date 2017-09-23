@@ -21,17 +21,23 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
+		<link href="../bb.css" rel="stylesheet">
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default no-margin">
 			<div class="container-fluid">
 				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 					<a class="navbar-brand" href="../index.html">&lt;Bennett Bernardoni&gt;</a>
 				</div>
-				<div>
+				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="mailto:bwberna2@illinois.edu"><i class="fa fa-envelope fa-lg pull-left"></i>Email (bwberna2@illinois.edu)</a></li>
-						<li><a href="../res/Resume.pdf"><i class="fa fa-file-text fa-lg pull-left"></i>Resume</a></li>
+						<li><a href="mailto:bwberna2@illinois.edu"><i class="fa fa-envelope fa-lg pull-left"></i>Email</a></li>
+						<li><a href="res/ResumeBennettBernardoni_2017-09-22.pdf"><i class="fa fa-file-text fa-lg pull-left"></i>Resume</a></li>
 						<li><a href="https://www.linkedin.com/pub/bennett-bernardoni/105/990/52"><i class="fa fa-linkedin fa-lg pull-left"></i>LinkedIn</a></li>
 						<li><a href="https://github.com/bbernardoni"><i class="fa fa-github fa-lg pull-left"></i>Github</a></li>
 					</ul>
@@ -54,7 +60,7 @@
 						their robot. To better understand the team’s code, I made diagrams of their representation of their swerve drive. After fully comprehending their 
 						strategy, I decided to emulate one aspect of the team’s idea.
 					</p>
-					<img src="Swerve Fun Page.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Code Development Sketches">
+					<img src="Swerve Fun Page.png" class="img-responsive pad-bot" alt="Swerve Code Development Sketches">
 					<p>
 						Finally, it was time to write the first version of the code. I started by making a PID algorithm that would position the steer motors. 
 						The first iteration had five drive modes, including an original mode. 
@@ -70,13 +76,13 @@
 						The MServo class controlled the steer motor and steer encoder, the SwerveModule class controlled an MServo class in addition to a drive motor,
 						and the Swerve class uses four SwerveModule classes to simulate the four swerve modules.
 					</p>
-					<img src="Swerve Class Diagram.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Class Diagram">
+					<img src="Swerve Class Diagram.png" class="img-responsive pad-bot" alt="Swerve Class Diagram">
 					<p>
 						In order to fix elusive logic errors, I created a way to simulate what the robot would do given a set of joystick values. It then prints all relevant
 						variables, so I can determine if the program was functioning as it should. This simulation was very useful for the development process and I was able
 						to discover many bugs without needing to physically moving the motor and risk destroying it.
 					</p>
-					<img src="GNU Simulation.png" style="padding-bottom: 10px;" class="img-responsive" alt="GNU Simulation">
+					<img src="GNU Simulation.png" class="img-responsive pad-bot" alt="GNU Simulation pad-bot">
 					<p>
 						After finally developing a stable version of the code, I continued to improve upon it. I added two more drive modes, one of which improved driver control, 
 						and other used a gyro to make the robot more intuitive to drive. After a screw jammed a motor during a meeting, I created safety code to detect when a 
@@ -117,7 +123,7 @@
 							it makes the robot go forward relative to the field.</li>
 						<li>Gyro Wheel mode is similar to gyro mode but the rotation stick is used to point to the direction the robot is meant to face.</li>
 					</ul>
-					<img src="Swerve Diagram.png" style="padding-bottom: 10px;" class="img-responsive" alt="Swerve Geometric Diagram">
+					<img src="Swerve Diagram.png" class="img-responsive" alt="Swerve Geometric Diagram pad-bot">
 					<p>
 						For the translate, car, steer, kine, and gyro modes, the Swerve class uses an algorithm, described below, to calculate the angles and speeds of the wheels.
 						The algorithm begins with translate X, translate Y, and rotation values being passed in. Pivot Angle is calculated by taking the direction of translation 
@@ -126,10 +132,10 @@
  					</p>
 					<p>&nbsp;tan(<em>TurnAngle</em>) = <em>dZ</em>/<em>Sensitivity</em></p>
 					<p>Solving for dZ:</p>
-					<p>&nbsp;<em>dZ</em>=tan(<em>TurnAngle</em>)*<em>Sensitivity</em></p>
+					<p>&nbsp;<em>dZ</em> = tan(<em>TurnAngle</em>)*<em>Sensitivity</em></p>
 					<p>Next, solving for dX and dY by using the red right triangle.</p>
-					<p>&nbsp;<em>dX</em>=<em>dZ</em>*cos(<em>PivotAngle</em>)</p>
-					<p>&nbsp;<em>dY</em>=<em>dZ</em>*sin(<em>PivotAngle</em>)</p>
+					<p>&nbsp;<em>dX</em> = <em>dZ</em>*cos(<em>PivotAngle</em>)</p>
+					<p>&nbsp;<em>dY</em> = <em>dZ</em>*sin(<em>PivotAngle</em>)</p>
 					<p>
 						Now I have our X and Y coordinates for the point of rotation. Using half the robot length and half the robot width I can determine the distances
 						to the pivot points for each of the wheels. The wheels are pointed perpendicular to the line connecting the pivot point and the wheel. 
