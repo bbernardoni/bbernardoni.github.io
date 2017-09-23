@@ -5,6 +5,9 @@
 	color: #fff;
 	background-color: #333;
 }
+body {
+	background-color: #eee;
+}
 .card {
 	float: left;
 	margin-right: 10px;
