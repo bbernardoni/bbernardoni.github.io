@@ -7,8 +7,8 @@
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<title>Bennett Bernardoni</title>
 
-		<link rel="shortcut icon" href="res/BBIcon.ico" type="image/x-icon">
-		<link rel="icon" href="res/BBIcon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="res/BB.ico" type="image/x-icon">
 	
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,39 +21,10 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<!-- TODO
-		finish projects
-			NesTet
-			CubeSolver
-			ZTD
-			RubiksCubeSimulator
-			SwerveGame
-		
-		-->
-		
 		<link href="bb.css" rel="stylesheet">
 	</head>
 	<body>
-		<nav class="navbar navbar-default no-margin">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="">&lt;Bennett Bernardoni&gt;</a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li><a href="mailto:bwberna2@illinois.edu"><i class="fa fa-envelope fa-lg pull-left"></i>Email</a></li>
-						<li><a href="res/ResumeBennettBernardoni_2017-09-22.pdf"><i class="fa fa-file-text fa-lg pull-left"></i>Resume</a></li>
-						<li><a href="https://www.linkedin.com/pub/bennett-bernardoni/105/990/52"><i class="fa fa-linkedin fa-lg pull-left"></i>LinkedIn</a></li>
-						<li><a href="https://github.com/bbernardoni"><i class="fa fa-github fa-lg pull-left"></i>Github</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<!--#include virtual="nav.html" -->
 		<img src="res/background.jpg" class="img-responsive" alt="Background">
 		<div class="dark">
 			<div class="container" style="padding-top: 20px; padding-bottom: 20px">
@@ -73,8 +44,8 @@
 						</p>
 						<p>
 							My areas of interest include high performance computing, computer architecture,
-							embedded systems, robotics, electronics, playing french horn, video games,
-							table games, and ultimate frisbee.
+							embedded systems, robotics, electronics, video games,
+							table games, playing french horn, and ultimate frisbee.
 						</p>
 					</div>
 				</div>
@@ -83,30 +54,55 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h2>Selected Projects</h2>
+					<h2>Selected Independent Projects</h2>
 					<div class="card">
 						<a href="Z80Asm/">
-							<div class="thumbnail">
+							<div class="thumbnail thumb">
 								<img src="Z80Asm/Thumb.png" alt="Z80 Assembly Math Program">
-								<div class="caption">
-									<b><p class="text-center no-margin">Z80 Math Program</p></b>
+								<div class="text-center caption">
+									<b>Z80 Math Program</b><br>
+									An extensive math<br>
+									program for the TI83+<br>
+									calculator written in<br>
+									Z80 Assembly<br>
+									&nbsp;
 								</div>
 							</div>
 						</a>
 					</div>
 					<div class="card">
 						<a href="Swerve/">
-							<div class="thumbnail">
+							<div class="thumbnail thumb">
 								<img src="Swerve/Thumb.png" alt="Swerve Drive Control System">
-								<div class="caption">
-									<b><p class="text-center no-margin">Swerve Drive Robot</p></b>
+								<div class="text-center caption">
+									<b>Swerve Drive Robot</b><br>
+									A C++ control system<br>
+									for an omnidirectional<br>
+									swerve drive and<br>
+									a Java game that<br>
+									simulates it
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="card">
+						<a href="ZTD/">
+							<div class="thumbnail thumb">
+								<img src="ZTD/Thumb.png" alt="Zelda Thrill Digger Assistant">
+								<div class="text-center caption">
+									<b>Zelda Thrill Digger</b><br>
+									A C++ assistant to a<br>
+									minesweeper-style<br>
+									minigame from<br>
+									<i>The Legend of Zelda:<br>
+									Skyward Sword</i>
 								</div>
 							</div>
 						</a>
 					</div>
 					<!--div class="card">
 						<a href="NesTet/">
-							<div class="thumbnail">
+							<div class="thumbnail thumb">
 								<img src="NesTet/Thumb.png" alt="NES Tetris Solver">
 								<div class="caption">
 									<b><p class="text-center no-margin">NES Tetris Solver</p></b>

@@ -8,9 +8,22 @@
 body {
 	background-color: #eee;
 }
+a {
+	text-decoration: none  !important;
+}
 .card {
 	float: left;
 	margin-right: 10px;
+}
+.thumb {
+	background-color: #d0d0d0;
+	border-color: #bbb #bbb #d02929;
+    border-bottom-width: 5px;
+	padding-bottom: 0;
+}
+.thumb:hover {
+	background-color: #bbb;
+	border-bottom-color: #ff2929;
 }
 .navbar-default .navbar-toggle .icon-bar {
 	background-color: white;
@@ -23,6 +36,10 @@ body {
 }
 .pad-bot {
 	padding-bottom: 20px;
+}
+.pad-but {
+	margin-top: 10px;
+    margin-bottom: 10px;
 }
 	
 @media (min-width: 768px) and (max-width: 991px) {
