@@ -7,8 +7,8 @@
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<title>Swerve Drive System Control</title>
 
-		<link rel="shortcut icon" href="../res/BBIcon.ico" type="image/x-icon">
-		<link rel="icon" href="../res/BBIcon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
 	
 		<!-- Bootstrap -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -46,12 +46,23 @@
 		</nav>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-9">
 					<h2>Swerve Drive System Control</h2>
+				</div>
+				<div class="col-md-3">
+					<a href="https://github.com/bbernardoni/SwerveGame" class="btn btn-default center-block pad-but" role="button">
+						<img src="../res/GitHub.png" height="30" />
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<p>
 						This project was created for the FIRST Robotics Competition (FRC), a competition where teams of students have six weeks to build a robot and compete
 						in regional events. My team decided that it wanted to create a prototype for a swerve drive, a very maneuverable design where each wheel can both 
 						spin in place as well as roll forward and backward. In order to control this new drive, I undertook the development of the code for the swerve drive. 
+						To demonstrate how the control system works visually at our competition, I also wrote a Java application that simulates the robot.
+						One of our mentors half-joking suggested that I should turn it into a game. So I added balls that can be picked up for points. The code for this game can be found <a href="https://github.com/bbernardoni/SwerveGame">here</a> and a zipfile can be downloaded here <a href="Pwnage Swerve Game 2014-04-25.zip">here</a>.
 					</p>
 					<h3>Development Process</h3>
 					<p>
@@ -82,7 +93,7 @@
 						variables, so I can determine if the program was functioning as it should. This simulation was very useful for the development process and I was able
 						to discover many bugs without needing to physically moving the motor and risk destroying it.
 					</p>
-					<img src="GNU Simulation.png" class="img-responsive pad-bot" alt="GNU Simulation pad-bot">
+					<img src="GNU Simulation.png" class="img-responsive pad-bot" alt="GNU Simulation">
 					<p>
 						After finally developing a stable version of the code, I continued to improve upon it. I added two more drive modes, one of which improved driver control, 
 						and other used a gyro to make the robot more intuitive to drive. After a screw jammed a motor during a meeting, I created safety code to detect when a 
@@ -123,7 +134,7 @@
 							it makes the robot go forward relative to the field.</li>
 						<li>Gyro Wheel mode is similar to gyro mode but the rotation stick is used to point to the direction the robot is meant to face.</li>
 					</ul>
-					<img src="Swerve Diagram.png" class="img-responsive" alt="Swerve Geometric Diagram pad-bot">
+					<img src="Swerve Diagram.png" class="img-responsive pad-bot" alt="Swerve Geometric Diagram">
 					<p>
 						For the translate, car, steer, kine, and gyro modes, the Swerve class uses an algorithm, described below, to calculate the angles and speeds of the wheels.
 						The algorithm begins with translate X, translate Y, and rotation values being passed in. Pivot Angle is calculated by taking the direction of translation 
@@ -141,7 +152,83 @@
 						to the pivot points for each of the wheels. The wheels are pointed perpendicular to the line connecting the pivot point and the wheel. 
 						The speeds of the wheels are the relative distances of the wheel to the pivot point. 
 					</p>
-					
+					<h3>Swerve Game</h3>
+					<h4>Implementation</h4>
+					<p>
+						This game was written in Java. The game engine was written from scratch using the built-in Swing and AWT for the GUI and custom collision detection. The JInput library is used for interfacing with joysticks.
+					</p>
+					<h4>Description</h4>
+					<img src="game1.png" class="img-responsive pad-bot" alt="Swerve Game Screen Shot">
+					<p>
+						The goal is to drive around and collect as many balls as
+						possible. Balls are collect by running them over while
+						travelling forward using the front end of the swerve drive
+						denoted by the point of the green triangle.
+						The time is limited to 20 seconds and 
+						the bigger the ball the more points it is worth.
+					</p>
+					<h4>Options</h4>
+					<img src="game2.png" class="img-responsive pad-bot" alt="Swerve Game Options">
+					<p>
+						The game contains two drive modes Crab which is equivalent to 
+						the Kine mode described above, and Gyro mode which is the same.
+						There are two game modes.
+						Free mode is used for demostrational purposes. In this mode the robot is able to move even after time runs out.
+						Timed mode is used for gaming purposes. In this mode the robot will be stopped after time runs out.
+						In the settings tab the user can specify the size and speed of the robot as well as the input device used.
+						The final tab provides help about the goal of the game and
+						the controls
+					</p>
+					<h4>Methods of control</h4>
+					<p>
+						The game supports three methods of control: keyboard, gamepad, and two joysticks.
+					</p>
+					<p>
+						With keyboard controls WASD is used to translate the robot and the left/right arrows to turn. The Space key is used to start timing.
+					</p>
+					<p>
+						A gamepad is a input device like an xbox controller.
+						To drive the bot use the left stick to translate and
+						the right stick X axis to turn.
+						Button 5 is used to start timing. 
+						On an xbox controller this is the A button.
+					</p>
+					<p>
+						A joystick is a input device like an attack controller.
+						Two of them are needed to play.
+						To drive the bot use the left stick to translate and
+						the right stick X axis to turn.
+						Button 5 is used to start timing.
+					</p>
+					<h4>Release and Reception</h4>
+					<p>
+						As this was a project for FRC, I decided to release the
+						game on Chief Delphi, the FRC forums, as found <a href="https://www.chiefdelphi.com/forums/showthread.php?t=129025">here</a>.
+						The game was also available to be played in our pit area
+						at the world championship that was hosted the next day.
+					</p>
+					<p>
+						The game was very well received as it did very effectively
+						demonstrate how the swerve drive worked and people
+						always love playing games.
+						While at the competition and on the forums, I got great feed back about things to fix or add for the first update.
+						Someone even made a thread on the forums to compare 
+						high scores (<a href="https://www.chiefdelphi.com/forums/showthread.php?t=129229">here</a>).
+						Most supprising, at a different competition one month later
+						I saw the person sitting in front of me was playing the game.
+						In any case, the control system and the game were both
+						fun projects that I learned a lot from.
+					</p>
+					<h3>Videos In action</h3>
+					A video demonstrating how an individual wheel moves. <br>
+					<video width="560" height="315" controls>
+						<source src="SwerveWheel.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video><br><br>
+					This video was our reveal video showing off our robot. <br>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/aM8C5qTzmXM" frameborder="0" allowfullscreen></iframe><br><br>
+					This is a video of one of our matches. We are the red robot starting with two balls. <br>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/x7d_sEoiESk" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
 		</div>
