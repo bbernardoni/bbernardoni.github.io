@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Zelda Thrill Digger Assistant</title>
+
+		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
+	
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link href="../bb.css" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar navbar-default no-margin">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../index.html">&lt;Bennett Bernardoni&gt;</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="mailto:bwberna2@illinois.edu"><i class="fa fa-envelope fa-lg pull-left"></i>Email</a></li>
+						<li><a href="res/ResumeBennettBernardoni_2017-09-22.pdf"><i class="fa fa-file-text fa-lg pull-left"></i>Resume</a></li>
+						<li><a href="https://www.linkedin.com/pub/bennett-bernardoni/105/990/52"><i class="fa fa-linkedin fa-lg pull-left"></i>LinkedIn</a></li>
+						<li><a href="https://github.com/bbernardoni"><i class="fa fa-github fa-lg pull-left"></i>Github</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<h2>Zelda Thrill Digger Assistant</h2>
+				</div>
+				<div class="col-md-3">
+					<a href="https://github.com/bbernardoni/ZTD" class="btn btn-default center-block pad-but" role="button">
+						<img src="../res/GitHub.png" height="30" />
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="gameSS.png" class="img-responsive pad-bot" alt="Screen Shot of the game">
+					<h3>Game Overview</h3>
+					<p>
+						Thrill Digger is a minigame from <i>The Legend of Zelda: Skyward Sword</i>
+						that is similar to Minesweeper.
+						The goal is to dig up as many rupees (money) as possible without 
+						digging up a bomb. In addition to bombs, there are rupoors
+						which are equivalent to negative rupees, however only bombs can end the game. 
+					</p>
+					<p>
+						The type of the rupee dug up indicates how many bombs and rupoors are adjacent.
+						The number of spots indicated is as follows:
+						<ul>
+							<li>Green Rupee: 0 spots</li>
+							<li>Blue Rupee: 1-2 spots</li>
+							<li>Red Rupee: 3-4 spots</li>
+							<li>Silver Rupee: 5-6 spots</li>
+							<li>Gold Rupee: 7-8 spots</li>
+						</ul>
+					</p>
+					<p>
+						There are three levels of difficulty: Beginner, Imtermediate, and Expert.
+						Expert was the level that I focused on for this project.
+						It has a 5x8 playing field with 8 bombs and 8 rupoors.
+					</p>
+					<h3>Implementation Description</h3>
+					<img src="progSS.png" class="img-responsive pad-bot" alt="Screen Shot of the program">
+					<p>
+						The program was written in C++ with the GUI made using Windows Forms.
+						The code can be found on Github <a href="https://github.com/bbernardoni/ZTD">here</a>.
+					</p>
+					<p>
+						The program starts as a 5x8 grid of drop down boxes each with undug selected.
+						As the player starts uncovering rupees in the game, they can
+						put what they found into the respective drop down.
+						The program will then calculate the likelihood that there is something bad in each spot.
+						It then writes that percentage in each box and colors it accordingly.
+						The player can use this information to choose the least likely
+						box to have a bad object in it.
+					</p>
+					<h3>Algorithm Description</h3>
+					<p>
+						The algorithm solves a Constraint Satisfaction Problem (CSP) to determine probablities.
+						I learned the basic steps to solve such a problem with help from 
+						<a href="http://www.cs.utoronto.ca/~cvs/minesweeper/minesweeper.pdf">this paper</a>.
+						It describes a how to solve a CSP to play minesweeper. However due to the 
+						differences in the games, I had to make many changes. Following is a description
+						of my algorithm used in my program.
+					</p>
+					<h4>Step 1: Generate constraints</h4>
+					<p>
+						Each spot that contains a rupee generates a constraint.
+						For example, if a blue rupee is uncovered in the upper right
+						corner, then the constraint is that there are 1-2 bad things
+						amongst the coordinates (0,1), (1,0), and (1,1).
+						As long as the constraint isn't empty (i.e. not
+						all neighboring spaces revealed) it is pushed to the back of
+						a vector of constraints.
+					</p>
+					<h4>Step 2: Build coupled subset of constraints</h4>
+					<p>
+						The constraints are then divided into coupled subsets.
+						Constraints are coupled if they share an undug neighbor.
+					</p>
+					<h4>Step 3: Count vaild solutions per subset</h4>
+					<p>
+						A depth-first search is performed on each coupled subset.
+						At each traversal, the constraints are checked to ensure
+						that the state is valid. Once every space in subset is
+						assigned, the solution is checked to make sure there are
+						less than 16 bombs and rupoors. If valid, the locations 
+						of the bad items are recorded along with the number bad items.
+					</p>
+					<h4>Step 4: Remove invaild solution sets</h4>
+					<p>
+						Even though we made sure each individual subset is vaild,
+						some of those solutions migth be invalid 
+						given all other possible solutions of the other subsets.
+						This occurs when the total number of bad items uncovered
+						minus the minimum number of bad items needed by the other
+						subsets exceeds the number of bad items needed the current
+						solution.
+						All solutions that violate that condition are removed.
+					</p>
+					<h4>Step 5: Calculate percentages</h4>
+					<p>
+						Finally, we calculate the probablity that a bad item is
+						located at each space.
+						For each location that is contained in a subset, 
+						this is simply done by calculating the ratio between
+						number of solutions containing a bad item and the
+						total number of solutions.
+						The rest of the probablities are determine by taking
+						16 minus the avgerage amount of bad items used so far
+						divided by the number of unconstrained locations.
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js"></script>
+	</body>
+</html>
