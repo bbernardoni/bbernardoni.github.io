@@ -48,8 +48,128 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-lg-3 col-sm-4">
+					<img src="Thumb.png" class="img-responsive center-block" width="300px" alt="MechMania Logo">
+				</div>
+				<div class="col-lg-9 col-sm-8">
+					<h3>Description</h3>
+					<p>
+						MechMania is a 24 hour Game AI hackathon held during the Reflection Projection
+						conference at the University of Illinois at Urbana-Champaign.
+						The first competition was held in 1995 and has run annually since then.
+						Teams write an autonomous program to compete in a round-robin tournament
+						playing against other bots in an original video game. 
+						More information can be found on the 
+						<a href="https://en.wikipedia.org/wiki/MechMania">wikipedia page</a>.
+					</p>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-12">
-					Todo
+					<h2>MechMania 22: Fall 2016</h2>
+					<h3>Game Description</h3>
+					<p>
+						A last team standing three-on-three battle set in a gladiatorial arena.
+						It was inspired by games like World of Warcraft with similar scenarios.
+						Each team writes an AI routine to control three characters having them
+						either move, attack, or use a special ability each turn.
+						The game features a cast of eight character classes to construct a team from.
+						For further game rules check out the 
+						<a href="https://github.com/ReflectionsProjections/mm22/wiki/Rules-of-the-Game">mm22 wiki</a>.
+					</p>
+					<h3>Results</h3>
+					<p>
+						A total of 37 teams participated MechMania 22.
+						Each team played the 36 other teams twice meaning they play a total of 72 games.
+						My team finished second winning 59 games, only 1 game away from first place.
+						My code can be found 
+						<a href="https://github.com/bbernardoni/0xDEADC0DE/tree/master/mm22">here</a>.
+					</p>
+					<h3>Gameplay Video</h3>
+					This video shows my match against Team Q, the 4th ranked team.
+					I am the blue team. <br>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Jyzi2LXQmHI" frameborder="0" allowfullscreen></iframe>
+					</div><br>
+					<h2>MechMania 23: Fall 2017</h2>
+					<h3>Game Description</h3>
+					<p>
+						A domination style three-on-three battle with a science fiction setting.
+						Each team controls a team of soldiers competing to capture three objectives.
+						The information available is limited to the cone of vision of each solider.
+						Victory is achieved by the team that first scores 500 points.
+						Points are awarded for controlling objectives, killing enemies, and
+						getting score pickups. The game runs in 3D using Unity as a game engine.
+						For further documentation and game files check out the 
+						<a href="https://mechmania2017.com/">mm23 webpage</a>.
+					</p>
+					<h3>Results</h3>
+					<p>
+						A total of 40 teams participated MechMania 23.
+						The results from round-robin tournament of 40 were a little unstable, so the 
+						top 10 teams played 4 double round-robin tournament playing 72 games each.
+						My team finished sixth winning 31 games. My code can be found 
+						<a href="https://github.com/bbernardoni/0xDEADC0DE/tree/master/mm23">here</a>.
+					</p>
+					<h3>Gameplay Video</h3>
+					<p>
+						The MechMania team recorded <a href="https://www.youtube.com/watch?v=hGkGJIhOA1E&list=PL499gOSYnIpFwa-ycl0QKP4rGw_iavJOD">
+						six highlight matches</a> featuring close games.
+						The video featured below shows the closest match of the highlighted games
+						with the winner winning by 0.1 seconds (6 frames @ 60 Hz).
+						I am the red team.
+					</p>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xLYWuBtIj64" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<h3>Strategy writeup</h3>
+					<p>
+						Following is a writeup of the strategy I used for MechMania 23.
+					</p>
+					<h4>Main Strategy</h4>
+					<p>
+						My main strategy was to use a load-out of three long range character to snipe from afar. Each character is assigned an objective that they are trying to take. As the characters spawn, they approach the objectives from an angle that provides a long line of sight. If they see an enemy, they keep their distance and snipe from a distance. Otherwise they cap the objective and retreat to their designated camping spot. Here they wait for an enemy to come and then snipe then if they try to take the objective.
+					</p>
+					<h4>Fire Priority</h4>
+					<p>
+						Fire priority for all characters was set to LOWHP. When fighting multiple characters it is important to guarantee kills. Once the first enemy is dead there will be less enemies firing at you and it gives you 5 points.
+					</p>
+					<h4>Changing Positions</h4>
+					<p>
+						If one of our characters is camping our owned objective and a character next to him dies, the character will be reassigned to the new objective. Also, this can be done simply by exchanging references of the two characters.
+					</p>
+					<h4>Items</h4>
+					<p>
+						If there character is close to an item, they will go and get it. Close is defined as 40 units for points items and 20 units for other items. If the character is fighting an enemy, capping an objective, or full on health when the item is health, then the character will not try to pick up an item.
+					</p>
+					<h4>Attacking Enemies</h4>
+					<p>
+						The character will target any enemy that it sees or is attacked by. It targets the enemy by looking at it and then moving to the camping spot to get some distance. The exception is when the character is capping a point they will hold there ground and face the enemy.
+					</p>
+					<h4>Rotation</h4>
+					<p>
+						If the character is far from the objective (>35 units) or capping the objective they will spin to try to detect any enemies. Otherwise the character looks at its assigned objective. Of course looking at an enemy takes priority over both of these.
+					</p>
+					<h4>Duck and Cover while Reloading</h4>
+					<p>
+						For each camping spot there is a predetermined duck and cover position. After the character takes a shot the character ducks behind cover while reloading.
+					</p>
+					<h4>Counter Strategy for Corner Hiders</h4>
+					<p>
+						One strategy others employed was to hide in the corners and either snipe or ambush those who try to take any of the outside objectives. To counteract this, as the character is approaching one of the outside objectives, they look to the corners to detect if anyone is hiding. Additionally, the outside character will spin along the edge when they are not focused of the objective or enemy. If they see someone, they go to a special position on the inside corner of the objective to snipe from as far away as they can. This location also has a designated duck and cover spot.
+					</p>
+					<h4>Improving Visibility Detection</h4>
+					<p>
+						This last strategy is a little complicated and not obvious at all. Before I describe it I have to explain how the games visibility detection works. Visibility detection is accomplished by tracing rays (20 for long range) and seeing if they collide with another character. You can see these rays in unity if you go to the scene view. However at the end of our range these rays spread out. This allows the possibility for a character to be positioned between the rays without touching them. This effect is worsened due to the fact that there are an even number of rays. Meaning there is no central ray, so if you approach another character head on they will automatically slip into the gap. As demonstrated in this gif.
+					</p>
+					<img src="splitRays.gif" class="img-responsive pad-bot" alt="Split Rays">
+					<p>
+						To prevent this from happening, we can oscillate the character's desired angle to catch a character that would otherwise slip through the gap.
+					</p>
+					<img src="oscRays.gif" class="img-responsive pad-bot" alt="Oscillating Rays">
+					<p>
+						By doing this we are more likely to get the first hit sooner and therefore survive longer. If you look very closely at one of my matches or the first gif you can notice that the vision cone for my characters vibrates when focusing on something.
+					</p>
 				</div>
 			</div>
 		</div>
