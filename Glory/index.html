@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Glory</title>
+
+		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
+	
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link href="../bb.css" rel="stylesheet">
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+			$('#nav').load('../nav.html');
+		});
+		</script>
+	</head>
+	<body>
+		<div id="nav"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<h2>Glory</h2>
+				</div>
+				<div class="col-md-3">
+					<a href="https://github.com/bbernardoni/Glory" class="btn btn-default center-block pad-but" role="button">
+						<img src="../res/GitHub.png" height="30" />
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>
+						My team's submission to a 12-hour Gamebuild-a-thon.
+						The event was held by 
+						<a href="https://www-s.acm.illinois.edu/gamebuilders/about.html">
+						ACM Gamebuilders at UIUC</a>, a group which I am a member of.
+						During the event I worked in a team of three to build 
+						a 3D game in Unity following the theme of glory.
+					</p>
+					<h3>Game Overview</h3>
+					<img src="glorySS.png" class="img-responsive pad-bot" alt="Screen Shot of the game">
+					<p>
+						Glory is wave based survival game set in the Colosseum.
+						The player is a gladiator fighting to achieve glory.
+						Spear-carrying enemies charge foward in ever increasing waves to try
+						to kill our gladiator.
+						If the player completes a wave without getting hit, the audience 
+						will give rewards of upgraded health, power, and sword length.
+						The game was developed in Unity featuring 3D graphics.
+					</p>
+					<h3>Gameplay Demonstration</h3>
+					<p>
+						Below is a video demonstration of our game.
+						There is a small framerate issue due to the
+						fact that I captured the video on an underpowered laptop.
+						Normally the game runs fine with exception of a few Game-Jam-esque bugs
+						(see the end of the video).
+					</p>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/jqyxbHrR4q8" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<h3>Game Mechanics Description</h3>
+				</div>
+			</div>
+			<div class="row lgray-back">
+				<div class="col-sm-2">
+					<h4>Controls</h4>
+				</div>
+				<div class="col-sm-10">
+					The player character's position is controlled through WASD of the arrow keys.
+					Mouse movement controls the third person camera 
+					and left click swings the sword.
+					The escape key exits the game.
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					<h4>Animation</h4>
+				</div>
+				<div class="col-sm-10">
+					The game employs two forms of animation.
+					The first is accomplished by transforming an object directly through Unity.
+					This is used to animate the swinging of the sword.
+					The walking animation is made in Blender and imported into Unity.
+				</div>
+			</div>
+			<div class="row lgray-back">
+				<div class="col-sm-2">
+					<h4>Rewards</h4>
+				</div>
+				<div class="col-sm-10">
+					If the player completes a wave without taking damage,
+					the audience will give the player a reward.
+					This reward increases the players health, power, and
+					the length of the sword.
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					<h4>Audience</h4>
+				</div>
+				<div class="col-sm-10">
+					64 audience members are populated around the Colosseum.
+					Each member jumps up and down in a sinusoidal fashion to imitate cheering.
+				</div>
+			</div>
+			<div class="row lgray-back">
+				<div class="col-sm-2">
+					<h4>Player Color</h4>
+				</div>
+				<div class="col-sm-10">
+					The player starts off solid blue. As they kill more enemies, 
+					the player gradually turns to red and achieves more glory.
+				</div>
+			</div>
+		</div><br>
+	</body>
+</html>

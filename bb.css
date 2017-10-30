@@ -41,6 +41,9 @@ a {
 	margin-top: 10px;
     margin-bottom: 10px;
 }
+.lgray-back {
+	background-color: #d0d0d0
+}
 	
 @media (min-width: 768px) and (max-width: 991px) {
 	.no-right-sm {
