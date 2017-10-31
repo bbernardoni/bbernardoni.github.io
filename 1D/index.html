@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>1D</title>
+
+		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
+	
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link href="../bb.css" rel="stylesheet">
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+			$('#nav').load('../nav.html');
+		});
+		</script>
+	</head>
+	<body>
+		<div id="nav"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<h2>1D</h2>
+				</div>
+				<div class="col-md-3">
+					<a href="https://github.com/bbernardoni/1D" class="btn btn-default center-block pad-but" role="button">
+						<img src="../res/GitHub.png" height="30" />
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="1Ddemo.gif" class="img-responsive pad-bot" alt="1D gif">
+					<p>
+						1D is a small demo of a one dimensional graphical engine written in Java.
+						The demo has three components.
+						The first is a first person view of the world as seen in the gif above.
+						Then there is a top down view, mostly for debugging purposes.
+						Finally, there is a level editor to make levels.
+					</p>
+					<h3>Graphics Engine</h3>
+					<p>
+						While I like to call this a one dimensional graphics engine it is really
+						a unique 2D graphical engine. Just like how a 3D engine rasters 
+						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
+						In fact, this engine follows the same steps as a 3D engine would except
+						rendering line segments instead of triangles.
+						First, at each frame it calculates a transformation matrix based on where
+						the character is. Then each line is iterated through the rasterization routine.
+						Finally, the frame buffer is drawn to the screen.
+					</p>
+					<h4>Transformation matrix</h4>
+					<img src="transform.svg" class="img-responsive" style="padding-bottom: 10px;" alt="Transform Matrix">
+					The transform matrix used. The first matrix rotates the world by <i>-θ</i>, 
+					the character's viewing angle. The second translate the world by <i>(-tx, -ty)</i>,
+					the location of the character.
+					<h4>Line Rasterization Routine</h4>
+					<ol>
+						<li>The endpoints of the line are transformed using the transformation matrix</li>
+						<li>The line is verified to be in the viewing triangle (analogous to 3D's frustum)</li>
+						<li>The endpoints are then projected onto the viewport line in pixel space</li>
+						<li>Each pixel of the line is iterated through</li>
+						<ol type='a'>
+							<li>The depth is calculated</li>
+							<li>If the depth is the smallest store it in a 1D z-buffer and continue, otherwise skip this pixel</li>
+							<li>The color shade is determined by the depth and the line's angle</li>
+							<li>Add the shaded pixel to the 1D frame buffer</li>
+						</ol>
+					</ol>
+					<h3>Top Down View</h3>
+					<img src="topDown.png" class="img-responsive pad-bot" alt="Top Down View">
+					<p>
+						The top down view shows the character's position and cone of vision
+						along with the map. The blue square denotes the location of the character,
+						the green lines indicate walls of the map,
+						and the red lines show the character's cone of vision.
+					</p>
+					<h3>Level Editor</h3>
+					<img src="lvlEdit.png" class="img-responsive pad-bot" alt="Level Editor">
+					<p>
+						The level editor allows for an easier way to make levels.
+						To make a line simply click the two endpoints.
+						Holding shift will make a line either horizontal of vertical.
+						By default the editor starts a new line every time, 
+						so to make connected lines hold control.
+						Backspace will remove the last placed line, whereas delete will delete all lines.
+						Finally, the enter key prints out the level data to console.
+						This data can be saved to a file and then the graphics engine will render it.
+					</p>
+					<h3>Video Demonstration</h3>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ZVA9AgdQ2Fs" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div><br>
+	</body>
+</html>
