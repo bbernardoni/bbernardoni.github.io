@@ -52,13 +52,13 @@
 					<p>
 						This project was created for the FIRST Robotics Competition (FRC), a competition where teams of students have six weeks to build a robot and compete
 						in regional events. My team decided that it wanted to create a prototype for a swerve drive, a very maneuverable design where each wheel can both 
-						spin in place as well as roll forward and backward. In order to control this new drive, I undertook the development of the code for the swerve drive. 
+						spin in place as well as roll forward and backward. To control this new drive, I undertook the development of the code for the swerve drive. 
 						To demonstrate how the control system works visually at our competition, I also wrote a Java application that simulates the robot.
-						One of our mentors half-joking suggested that I should turn it into a game. So I added balls that can be picked up for points. The code for this game can be found <a href="https://github.com/bbernardoni/SwerveGame">here</a> and a zipfile can be downloaded here <a href="Pwnage Swerve Game 2014-04-25.zip">here</a>.
+						One of our mentors half-joking suggested that I should turn it into a game. So, I added balls that can be picked up for points. The code for this game can be found <a href="https://github.com/bbernardoni/SwerveGame">here</a> and a zip file can be downloaded <a href="Pwnage Swerve Game 2014-04-25.zip">here</a>.
 					</p>
 					<h3>Development Process</h3>
 					<p>
-						The first step of code development was to determine how the wheels should be positioned. I researched what drive modes other teams use in order to 
+						The first step of code development was to determine how the wheels should be positioned. I researched what drive modes other teams use to 
 						quickly determine which system works the best. Another team had been using a swerve drive for many years, so I decided to look at how they control 
 						their robot. To better understand the team’s code, I made diagrams of their representation of their swerve drive. After fully comprehending their 
 						strategy, I decided to emulate one aspect of the team’s idea.
@@ -70,7 +70,7 @@
 					</p>
 					<p>
 						Since the robot was not finished upon the completion of the first iteration of the code, debugging did not begin until the start of build season.
-						To debug the code I broke it into small parts to find bugs without destroying any motors. However, the final mechanical design for the swerve drive
+						To debug the code, I broke it into small parts to find bugs without destroying any motors. However, the final mechanical design for the swerve drive
 						was modified to no longer allow for continuous rotation. To compensate for this, I had to add code to avoid the dead stops which the wheel could 
 						not physically move though.
 					</p>
@@ -81,9 +81,9 @@
 					</p>
 					<img src="Swerve Class Diagram.png" class="img-responsive pad-bot" alt="Swerve Class Diagram">
 					<p>
-						In order to fix elusive logic errors, I created a way to simulate what the robot would do given a set of joystick values. It then prints all relevant
+						To fix elusive logic errors, I created a way to simulate what the robot would do given a set of joystick values. It then prints all relevant
 						variables, so I can determine if the program was functioning as it should. This simulation was very useful for the development process and I was able
-						to discover many bugs without needing to physically moving the motor and risk destroying it.
+						to discover many bugs without needing to physically move the motor and risk destroying it.
 					</p>
 					<img src="GNU Simulation.png" class="img-responsive pad-bot" alt="GNU Simulation">
 					<p>
@@ -116,15 +116,15 @@
 						<li>Lock mode is used to “lock” the robot in place. The angles of the wheels are passed in and it turns the wheels to them. This is used when I want 
 							the robot to not be pushed around.</li>
 						<li>Tank mode operates exactly a tank drive. The left Y axis controls the left drive motors and vice-versa.</li>
-						<li>Translate mode only translates and does not rotate. The X axis translates sideways and the Y axis translates forward and backward.</li>
+						<li>Translate mode only translates and does not rotate. The X axis translates sideways, and the Y axis translates forward and backward.</li>
 						<li>Car mode moves the robot like a car. The Y axis makes the robot move forward and backward, and the X axis steers like a steering wheel.
 							Unlike a car if the X axis is at the maximum or minimum than the robot will turn in place.</li>
 						<li>Steer mode has one stick for translation like translation mode and one axis for rotation. Rotation only turns the wheel,
-							so the translation will need to be applied to actually move the robot. This is because the rotation acts like a steering wheel.</li>
+							so the translation will need to be applied to move the robot. This is because the rotation acts like a steering wheel.</li>
 						<li>Kine mode is similar to steer mode but it allows the robot to move using only the rotation axis.</li>
 						<li>Gyro is the same as kine but instead of forward joystick motion making the robot move forward relative to itself,
 							it makes the robot go forward relative to the field.</li>
-						<li>Gyro Wheel mode is similar to gyro mode but the rotation stick is used to point to the direction the robot is meant to face.</li>
+						<li>Gyro Wheel mode is similar to gyro mode, but the rotation stick is used to point to the direction the robot is meant to face.</li>
 					</ul>
 					<img src="Swerve Diagram.png" class="img-responsive pad-bot" alt="Swerve Geometric Diagram">
 					<p>
@@ -165,7 +165,7 @@
 						The game contains two drive modes Crab which is equivalent to 
 						the Kine mode described above, and Gyro mode which is the same.
 						There are two game modes.
-						Free mode is used for demostrational purposes. In this mode the robot is able to move even after time runs out.
+						Free mode is used for demonstrational purposes. In this mode the robot can move even after time runs out.
 						Timed mode is used for gaming purposes. In this mode the robot will be stopped after time runs out.
 						In the settings tab the user can specify the size and speed of the robot as well as the input device used.
 						The final tab provides help about the goal of the game and
@@ -179,16 +179,16 @@
 						With keyboard controls WASD is used to translate the robot and the left/right arrows to turn. The Space key is used to start timing.
 					</p>
 					<p>
-						A gamepad is a input device like an xbox controller.
-						To drive the bot use the left stick to translate and
+						A gamepad is an input device like an xbox controller.
+						To drive the bot, use the left stick to translate and
 						the right stick X axis to turn.
 						Button 5 is used to start timing. 
 						On an xbox controller this is the A button.
 					</p>
 					<p>
-						A joystick is a input device like an attack controller.
+						A joystick is an input device like an attack controller.
 						Two of them are needed to play.
-						To drive the bot use the left stick to translate and
+						To drive the bot, use the left stick to translate and
 						the right stick X axis to turn.
 						Button 5 is used to start timing.
 					</p>
@@ -203,10 +203,10 @@
 						The game was very well received as it did very effectively
 						demonstrate how the swerve drive worked and people
 						always love playing games.
-						While at the competition and on the forums, I got great feed back about things to fix or add for the first update.
+						While at the competition and on the forums, I got great feedback about things to fix or add for the first update.
 						Someone even made a thread on the forums to compare 
 						high scores (<a href="https://www.chiefdelphi.com/forums/showthread.php?t=129229">here</a>).
-						Most supprising, at a different competition one month later
+						Most surprising, at a different competition one month later
 						I saw the person sitting in front of me was playing the game.
 						In any case, the control system and the game were both
 						fun projects that I learned a lot from.

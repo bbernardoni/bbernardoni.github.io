@@ -54,13 +54,13 @@
 				<div class="col-lg-9 col-sm-8">
 					<h3>Description</h3>
 					<p>
-						MechMania is a 24 hour Game AI hackathon held during the Reflection Projection
+						MechMania is a 24-hour Game AI hackathon held during the Reflection Projection
 						conference at the University of Illinois at Urbana-Champaign.
 						The first competition was held in 1995 and has run annually since then.
 						Teams write an autonomous program to compete in a round-robin tournament
 						playing against other bots in an original video game. 
 						More information can be found on the 
-						<a href="https://en.wikipedia.org/wiki/MechMania">wikipedia page</a>.
+						<a href="https://en.wikipedia.org/wiki/MechMania">Wikipedia page</a>.
 					</p>
 				</div>
 			</div>
@@ -107,7 +107,7 @@
 					<p>
 						A total of 40 teams participated MechMania 23.
 						The results from round-robin tournament of 40 were a little unstable, so the 
-						top 10 teams played 4 double round-robin tournament playing 72 games each.
+						top 10 teams played 4 double round-robin tournaments playing 72 games each.
 						My team finished sixth winning 31 games. My code can be found 
 						<a href="https://github.com/bbernardoni/0xDEADC0DE/tree/master/mm23">here</a>.
 					</p>
@@ -128,11 +128,11 @@
 					</p>
 					<h4>Main Strategy</h4>
 					<p>
-						My main strategy was to use a load-out of three long range character to snipe from afar. Each character is assigned an objective that they are trying to take. As the characters spawn, they approach the objectives from an angle that provides a long line of sight. If they see an enemy, they keep their distance and snipe from a distance. Otherwise they cap the objective and retreat to their designated camping spot. Here they wait for an enemy to come and then snipe then if they try to take the objective.
+						My main strategy was to use a load-out of three long range characters to snipe from afar. Each character is assigned an objective that they are trying to take. As the characters spawn, they approach the objectives from an angle that provides a long line of sight. If they see an enemy, they keep their distance and snipe from a distance. Otherwise they cap the objective and retreat to their designated camping spot. Here they wait for an enemy to come and then snipe then if they try to take the objective.
 					</p>
 					<h4>Fire Priority</h4>
 					<p>
-						Fire priority for all characters was set to LOWHP. When fighting multiple characters it is important to guarantee kills. Once the first enemy is dead there will be less enemies firing at you and it gives you 5 points.
+						Fire priority for all characters was set to LOWHP. When fighting multiple characters, it is important to guarantee kills. Once the first enemy is dead there will be less enemies firing at you and it gives you 5 points.
 					</p>
 					<h4>Changing Positions</h4>
 					<p>
@@ -140,15 +140,15 @@
 					</p>
 					<h4>Items</h4>
 					<p>
-						If there character is close to an item, they will go and get it. Close is defined as 40 units for points items and 20 units for other items. If the character is fighting an enemy, capping an objective, or full on health when the item is health, then the character will not try to pick up an item.
+						If their character is close to an item, they will go and get it. Close is defined as 40 units for points items and 20 units for other items. If the character is fighting an enemy, capping an objective, or full on health when the item is health, then the character will not try to pick up an item.
 					</p>
 					<h4>Attacking Enemies</h4>
 					<p>
-						The character will target any enemy that it sees or is attacked by. It targets the enemy by looking at it and then moving to the camping spot to get some distance. The exception is when the character is capping a point they will hold there ground and face the enemy.
+						The character will target any enemy that it sees or is attacked by. It targets the enemy by looking at it and then moving to the camping spot to get some distance. The exception is when the character is capping a point they will hold their ground and face the enemy.
 					</p>
 					<h4>Rotation</h4>
 					<p>
-						If the character is far from the objective (>35 units) or capping the objective they will spin to try to detect any enemies. Otherwise the character looks at its assigned objective. Of course looking at an enemy takes priority over both of these.
+						If the character is far from the objective (>35 units) or capping the objective, they will spin to try to detect any enemies. Otherwise the character looks at its assigned objective. Of course, looking at an enemy takes priority over both of these.
 					</p>
 					<h4>Duck and Cover while Reloading</h4>
 					<p>
@@ -160,7 +160,7 @@
 					</p>
 					<h4>Improving Visibility Detection</h4>
 					<p>
-						This last strategy is a little complicated and not obvious at all. Before I describe it I have to explain how the games visibility detection works. Visibility detection is accomplished by tracing rays (20 for long range) and seeing if they collide with another character. You can see these rays in unity if you go to the scene view. However at the end of our range these rays spread out. This allows the possibility for a character to be positioned between the rays without touching them. This effect is worsened due to the fact that there are an even number of rays. Meaning there is no central ray, so if you approach another character head on they will automatically slip into the gap. As demonstrated in this gif.
+						This last strategy is a little complicated and not obvious at all. Before I describe it I have to explain how the games visibility detection works. Visibility detection is accomplished by tracing rays (20 for long range) and seeing if they collide with another character. You can see these rays in unity if you go to the scene view. However, at the end of our range these rays spread out. This allows the possibility for a character to be positioned between the rays without touching them. This effect is worsened since there are an even number of rays. Meaning there is no central ray, so if you approach another character head on they will automatically slip into the gap. As demonstrated in this gif.
 					</p>
 					<img src="splitRays.gif" class="img-responsive pad-bot" alt="Split Rays">
 					<p>

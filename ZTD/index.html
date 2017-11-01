@@ -70,7 +70,7 @@
 						</ul>
 					</p>
 					<p>
-						There are three levels of difficulty: Beginner, Imtermediate, and Expert.
+						There are three levels of difficulty: Beginner, Intermediate, and Expert.
 						Expert was the level that I focused on for this project.
 						It has a 5x8 playing field with 8 bombs and 8 rupoors.
 					</p>
@@ -91,7 +91,7 @@
 					</p>
 					<h3>Algorithm Description</h3>
 					<p>
-						The algorithm solves a Constraint Satisfaction Problem (CSP) to determine probablities.
+						The algorithm solves a Constraint Satisfaction Problem (CSP) to determine probabilities.
 						I learned the basic steps to solve such a problem with help from 
 						<a href="http://www.cs.utoronto.ca/~cvs/minesweeper/minesweeper.pdf">this paper</a>.
 						It describes a how to solve a CSP to play minesweeper. However due to the 
@@ -113,7 +113,7 @@
 						The constraints are then divided into coupled subsets.
 						Constraints are coupled if they share an undug neighbor.
 					</p>
-					<h4>Step 3: Count vaild solutions per subset</h4>
+					<h4>Step 3: Count valid solutions per subset</h4>
 					<p>
 						A depth-first search is performed on each coupled subset.
 						At each traversal, the constraints are checked to ensure
@@ -122,10 +122,10 @@
 						less than 16 bombs and rupoors. If valid, the locations 
 						of the bad items are recorded along with the number bad items.
 					</p>
-					<h4>Step 4: Remove invaild solution sets</h4>
+					<h4>Step 4: Remove invalid solution sets</h4>
 					<p>
-						Even though we made sure each individual subset is vaild,
-						some of those solutions migth be invalid 
+						Even though we made sure each individual subset is valid,
+						some of those solutions might be invalid 
 						given all other possible solutions of the other subsets.
 						This occurs when the total number of bad items uncovered
 						minus the minimum number of bad items needed by the other
@@ -135,14 +135,14 @@
 					</p>
 					<h4>Step 5: Calculate percentages</h4>
 					<p>
-						Finally, we calculate the probablity that a bad item is
+						Finally, we calculate the probability that a bad item is
 						located at each space.
 						For each location that is contained in a subset, 
 						this is simply done by calculating the ratio between
 						number of solutions containing a bad item and the
 						total number of solutions.
-						The rest of the probablities are determine by taking
-						16 minus the avgerage amount of bad items used so far
+						The rest of the probabilities are determined by taking
+						16 minus the average amount of bad items used so far
 						divided by the number of unconstrained locations.
 					</p>
 				</div>
