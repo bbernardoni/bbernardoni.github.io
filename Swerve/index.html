@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Swerve Drive System Control</title>
+		<title>Swerve Drive</title>
 
 		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
 		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
@@ -39,7 +39,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9">
-					<h2>Swerve Drive System Control</h2>
+					<h2>Swerve Drive Control System and Game</h2>
 				</div>
 				<div class="col-md-3">
 					<a href="https://github.com/bbernardoni/SwerveGame" class="btn btn-default center-block pad-but" role="button">
@@ -52,11 +52,22 @@
 					<p>
 						This project was created for the FIRST Robotics Competition (FRC), a competition where teams of students have six weeks to build a robot and compete
 						in regional events. My team decided that it wanted to create a prototype for a swerve drive, a very maneuverable design where each wheel can both 
-						spin in place as well as roll forward and backward. To control this new drive, I undertook the development of the code for the swerve drive. 
+						spin in place as well as roll forward and backward. To control this new drive, I undertook the development of the code for the swerve drive in C++. 
 						To demonstrate how the control system works visually at our competition, I also wrote a Java application that simulates the robot.
-						One of our mentors half-joking suggested that I should turn it into a game. So, I added balls that can be picked up for points. The code for this game can be found <a href="https://github.com/bbernardoni/SwerveGame">here</a> and a zip file can be downloaded <a href="Pwnage Swerve Game 2014-04-25.zip">here</a>.
+						One of our mentors half-joking suggested that I should turn it into a game. So, I added balls that can be picked up for points.
+						I presented a playable demo at a competition to passersby and released it on the FRC forums.
+						The code for this game can be found <a href="https://github.com/bbernardoni/SwerveGame">here</a> and a zip file of the executable can be downloaded <a href="Pwnage Swerve Game 2014-04-25.zip">here</a>.
 					</p>
-					<h3>Development Process</h3>
+					<h3>Video Demonstration</h3>
+					A video demonstrating how an individual wheel moves. <br>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/D4hzLIkGL6Q" frameborder="0" allowfullscreen></iframe>
+					</div><br>
+					Demonstration of the swerve game. <br>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RZVcutj6WNI" frameborder="0" allowfullscreen></iframe>
+					</div><br>
+					<h3>Swerve Drive Development Process</h3>
 					<p>
 						The first step of code development was to determine how the wheels should be positioned. I researched what drive modes other teams use to 
 						quickly determine which system works the best. Another team had been using a swerve drive for many years, so I decided to look at how they control 
@@ -91,7 +102,7 @@
 						and other used a gyro to make the robot more intuitive to drive. After a screw jammed a motor during a meeting, I created safety code to detect when a 
 						motor was malfunctioning and to respond accordingly.
 					</p>
-					<h3>Final Code Description</h3>
+					<h3>Swerve Drive Final Code Description</h3>
 					<p>
 						The code is divided into three main classes: MServo, SwerveModule, and Swerve.
 					</p>
@@ -144,7 +155,7 @@
 						to the pivot points for each of the wheels. The wheels are pointed perpendicular to the line connecting the pivot point and the wheel. 
 						The speeds of the wheels are the relative distances of the wheel to the pivot point. 
 					</p>
-					<h3>Swerve Game</h3>
+					<h3>Swerve Game Documentation</h3>
 					<h4>Implementation</h4>
 					<p>
 						This game was written in Java. The game engine was written from scratch using the built-in Swing and AWT for the GUI and custom collision detection. The JInput library is used for interfacing with joysticks.
@@ -212,10 +223,6 @@
 						fun projects that I learned a lot from.
 					</p>
 					<h3>Videos In action</h3>
-					A video demonstrating how an individual wheel moves. <br>
-					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/D4hzLIkGL6Q" frameborder="0" allowfullscreen></iframe>
-					</div><br><br>
 					This video was our reveal video showing off our robot. <br>
 					<div class="embed-responsive embed-responsive-16by9">
 						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/aM8C5qTzmXM" frameborder="0" allowfullscreen></iframe>
