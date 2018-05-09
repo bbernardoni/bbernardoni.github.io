@@ -50,75 +50,100 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						This p
+						Something about this being a blog. More description.
 					</p>
 					<div class="list-group">
-						<a href="#0418" class="list-group-item">April 18, 2018</a>
-						<a href="#0419" class="list-group-item">April 19, 2018</a>
+						<a href="#0418" class="list-group-item">April 18, 2018: Setup</a>
+						<a href="#0421" class="list-group-item">April 21, 2018: The First Prototype</a>
+						<a href="#0429" class="list-group-item">April 29, 2018: Refactoring</a>
 					</div>
-					<h3 id="0418">April 18, 2018</h3>
-					<h2>Documentation</h2>
+					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						Hello and welcome to my development blog for the final project of
+						Computer Graphics and Interaction (DH2323). In the following posts,
+						I will detail the development process behind the creation of the project.
 					</p>
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						The goal of the project is to create and document something related to
+						the objectives of the class. This is very open ended giving me a wide array
+						of topics to choose from. As of now, I am not entirely sure what I want to
+						do, but I have a couple ideas that I want to play around with before
+						settling of a project specification.
 					</p>
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						Before I can work on a prototype for the project, I first needed do some
+						setup. Since we have used SDL for the labs, I choose to use it to handle
+						window creation and input. However, I decided to use the more updated 
+						SDL 2 instead of SDL 1 we used in the labs. To help me learn SDL and
+						setup the prototype I used Lazy Foo' Productions 
+						<a href="http://lazyfoo.net/tutorials/SDL/index.php">SDL Tutorials</a>.
+						For rendering graphics I choose to use OpenGL. Again, as I do not have a 
+						lot of experience with OpenGL I setup my environment with the help of an
+						<a href="http://www.opengl-tutorial.org/">OpenGL tutorial</a>.
 					</p>
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						For the sake of getting a prototype up and running, I have copied some of the
+						code from these two tutorials into Visual Studios and after some debugging,
+						I was able to write a working framework for my prototype. Currently,
+						it is able to load and render textured OBJ files with shading. I have also
+						implemented rudimentary movement controls for the camera.
+						A screen shot is displayed below.
 					</p>
+					<img src="setup.png" class="img-responsive pad-bot" alt="Set-Up Code Results">
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						Once I get a better idea of what I want to do with project, I will refactor
+						the code to get rid of all the global variables and so that the code is
+						completely my own. But first, now that I have something working to talk
+						about, I am setting up this blog. For my next post, I plan to experiment
+						with the shaders and hopefully develop an interesting prototype.
 					</p>
-					<h3 id="0419">April 19, 2018</h3>
-					<h2>Documentation</h2>
+					<h2 id="0421">April 21, 2018: The First Prototype</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="battlezone.jpg" class="img-responsive pull-right-sm" alt="Battlezone Arcade">
 					<p>
-						While I like to call this a one-dimensional graphics engine it is really
-						a unique 2D graphical engine. Just like how a 3D engine rasters 
-						a 3D world to a 2D viewport, this engine rasters a 2D world to a 1D viewport.
-						In fact, this engine follows the same steps as a 3D engine would except
-						rendering line segments instead of triangles.
-						First, at each frame it calculates a transformation matrix based on where
-						the character is. Then each line is iterated through the rasterization routine.
-						Finally, the frame buffer is drawn to the screen.
+						I have started work on making a prototype. The goal of the prototype is
+						to make a wireframe shader that emulates vector monitors. Vector monitors
+						are an old display technology where graphics are rendered via drawing lines
+						as opposed to a grid of pixels as on raster monitors. These monitors where
+						occasionally used in arcade games up until the mid 1980s. These games
+						include Asteroids, Tempest, Star Wars, and Battlezone as pictured here.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="proto1.png" class="img-responsive pull-right-sm" alt="glPolygonMode Wireframe">
+					<p>
+						The first method I tried was to use
+						<code>glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)</code>. It is not a shader 
+						in itself, but a rendering option in OpenGL. However, as seen here this 
+						makes very thin aliased lines.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="proto2.png" class="img-responsive pull-right-sm" alt="Barycentric Coordinates Wireframe">
+					<p>
+						This method does not give me the control I want. So, I did some research
+						and found that a different method <a href="http://codeflow.org/entries/2012/aug/02/easy-wireframe-display-with-barycentric-coordinates/">here</a> and <a href="http://catlikecoding.com/unity/tutorials/advanced-rendering/flat-and-wireframe-shading/">here</a>.
+						This method uses barycentric coordinates which allows customizable
+						anti aliasing based on the distance to the closest edge.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h2 id="0429">April 29, 2018: Refactoring</h2>
+					<p>
+						Quick update here. I have been spending a little time refactoring the code. I abstracted some of the
+						code into several classes so that it will be easier to work with. Additionally, I didn't like how
+						the outer edges of the wireframe were aliased in the previous post. This led to me looking into bloom
+						and finding a <a href="https://learnopengl.com/Advanced-Lighting/Bloom">tutorial</a> on it. I also
+						looked at other OpenGL topics in the tutorial which helped clean up the code even more.
 					</p>
 				</div>
 			</div>
