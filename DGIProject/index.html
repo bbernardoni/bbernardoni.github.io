@@ -56,46 +56,24 @@
 						<a href="#0418" class="list-group-item">April 18, 2018: Setup</a>
 						<a href="#0421" class="list-group-item">April 21, 2018: The First Prototype</a>
 						<a href="#0429" class="list-group-item">April 29, 2018: Refactoring</a>
+						<a href="#0510" class="list-group-item">May 10, 2018: Project Specification</a>
 					</div>
 					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
-						Hello and welcome to my development blog for the final project of
-						Computer Graphics and Interaction (DH2323). In the following posts,
-						I will detail the development process behind the creation of the project.
+						Hello and welcome to my development blog for the final project of Computer Graphics and Interaction (DH2323). In the following posts, I will detail the development process behind the creation of the project.
 					</p>
 					<p>
-						The goal of the project is to create and document something related to
-						the objectives of the class. This is very open ended giving me a wide array
-						of topics to choose from. As of now, I am not entirely sure what I want to
-						do, but I have a couple ideas that I want to play around with before
-						settling of a project specification.
+						The goal of the project is to create and document something related to the objectives of the class. This is very open ended giving me a wide array of topics to choose from. As of now, I am not entirely sure what I want to do, but I have a couple ideas that I want to play around with before settling of a project specification.
 					</p>
 					<p>
-						Before I can work on a prototype for the project, I first needed do some
-						setup. Since we have used SDL for the labs, I choose to use it to handle
-						window creation and input. However, I decided to use the more updated 
-						SDL 2 instead of SDL 1 we used in the labs. To help me learn SDL and
-						setup the prototype I used Lazy Foo' Productions 
-						<a href="http://lazyfoo.net/tutorials/SDL/index.php">SDL Tutorials</a>.
-						For rendering graphics I choose to use OpenGL. Again, as I do not have a 
-						lot of experience with OpenGL I setup my environment with the help of an
-						<a href="http://www.opengl-tutorial.org/">OpenGL tutorial</a>.
+						Before I can work on a prototype for the project, I first needed do some setup. Since we have used SDL for the labs, I choose to use it to handle window creation and input. However, I decided to use the more updated SDL 2 instead of SDL 1 we used in the labs. To help me learn SDL and setup the prototype I used Lazy Foo' Productions <a href="http://lazyfoo.net/tutorials/SDL/index.php">SDL Tutorials</a>. For rendering graphics I choose to use OpenGL. Again, as I do not have a lot of experience with OpenGL I setup my environment with the help of an <a href="http://www.opengl-tutorial.org/">OpenGL tutorial</a>.
 					</p>
 					<p>
-						For the sake of getting a prototype up and running, I have copied some of the
-						code from these two tutorials into Visual Studios and after some debugging,
-						I was able to write a working framework for my prototype. Currently,
-						it is able to load and render textured OBJ files with shading. I have also
-						implemented rudimentary movement controls for the camera.
-						A screen shot is displayed below.
+						For the sake of getting a prototype up and running, I have copied some of the code from these two tutorials into Visual Studios and after some debugging, I was able to write a working framework for my prototype. Currently, it is able to load and render textured OBJ files with shading. I have also implemented rudimentary movement controls for the camera. A screen shot is displayed below.
 					</p>
 					<img src="setup.png" class="img-responsive pad-bot" alt="Set-Up Code Results">
 					<p>
-						Once I get a better idea of what I want to do with project, I will refactor
-						the code to get rid of all the global variables and so that the code is
-						completely my own. But first, now that I have something working to talk
-						about, I am setting up this blog. For my next post, I plan to experiment
-						with the shaders and hopefully develop an interesting prototype.
+						Once I get a better idea of what I want to do with project, I will refactor the code to get rid of all the global variables and so that the code is completely my own. But first, now that I have something working to talk about, I am setting up this blog. For my next post, I plan to experiment with the shaders and hopefully develop an interesting prototype.
 					</p>
 					<h2 id="0421">April 21, 2018: The First Prototype</h2>
 				</div>
@@ -104,12 +82,7 @@
 				<div class="col-md-12">
 					<img src="battlezone.jpg" class="img-responsive pull-right-sm" alt="Battlezone Arcade">
 					<p>
-						I have started work on making a prototype. The goal of the prototype is
-						to make a wireframe shader that emulates vector monitors. Vector monitors
-						are an old display technology where graphics are rendered via drawing lines
-						as opposed to a grid of pixels as on raster monitors. These monitors where
-						occasionally used in arcade games up until the mid 1980s. These games
-						include Asteroids, Tempest, Star Wars, and Battlezone as pictured here.
+						I have started work on making a prototype. The goal of the prototype is to make a wireframe shader that emulates vector monitors. Vector monitors are an old display technology where graphics are rendered via drawing lines as opposed to a grid of pixels as on raster monitors. These monitors where occasionally used in arcade games up until the mid 1980s. These games include Asteroids, Tempest, Star Wars, and Battlezone as pictured here.
 					</p>
 				</div>
 			</div>
@@ -117,10 +90,7 @@
 				<div class="col-md-12">
 					<img src="proto1.png" class="img-responsive pull-right-sm" alt="glPolygonMode Wireframe">
 					<p>
-						The first method I tried was to use
-						<code>glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)</code>. It is not a shader 
-						in itself, but a rendering option in OpenGL. However, as seen here this 
-						makes very thin aliased lines.
+						The first method I tried was to use <code>glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)</code>. It is not a shader in itself, but a rendering option in OpenGL. However, as seen here this makes very thin aliased lines.
 					</p>
 				</div>
 			</div>
@@ -128,10 +98,7 @@
 				<div class="col-md-12">
 					<img src="proto2.png" class="img-responsive pull-right-sm" alt="Barycentric Coordinates Wireframe">
 					<p>
-						This method does not give me the control I want. So, I did some research
-						and found that a different method <a href="http://codeflow.org/entries/2012/aug/02/easy-wireframe-display-with-barycentric-coordinates/">here</a> and <a href="http://catlikecoding.com/unity/tutorials/advanced-rendering/flat-and-wireframe-shading/">here</a>.
-						This method uses barycentric coordinates which allows customizable
-						anti aliasing based on the distance to the closest edge.
+						This method does not give me the control I want. So, I did some research and found that a different method <a href="http://codeflow.org/entries/2012/aug/02/easy-wireframe-display-with-barycentric-coordinates/">here</a> and <a href="http://catlikecoding.com/unity/tutorials/advanced-rendering/flat-and-wireframe-shading/">here</a>. This method uses barycentric coordinates which allows customizable anti aliasing based on the distance to the closest edge.
 					</p>
 				</div>
 			</div>
@@ -139,11 +106,52 @@
 				<div class="col-md-12">
 					<h2 id="0429">April 29, 2018: Refactoring</h2>
 					<p>
-						Quick update here. I have been spending a little time refactoring the code. I abstracted some of the
-						code into several classes so that it will be easier to work with. Additionally, I didn't like how
-						the outer edges of the wireframe were aliased in the previous post. This led to me looking into bloom
-						and finding a <a href="https://learnopengl.com/Advanced-Lighting/Bloom">tutorial</a> on it. I also
-						looked at other OpenGL topics in the tutorial which helped clean up the code even more.
+						Quick update here. I have been spending a little time refactoring the code. I abstracted some of the code into several classes so that it will be easier to work with. Additionally, I didn't like how the outer edges of the wireframe were aliased in the previous post. This led to me looking into bloom and finding a <a href="https://learnopengl.com/Advanced-Lighting/Bloom">tutorial</a> on it. I also looked at other OpenGL topics in the tutorial which helped clean up the code even more.
+					</p>
+					<h2 id="0510">May 10, 2018: Project Specification</h2>
+					<p>
+						I have completed a submitted the first draft of my project specification. As such, I have committed to project goal. Following is the current version of the specification.
+					</p>
+					<h3>Project Goal</h3>
+					<p>
+						The goal of the project is to render 3D geometry as silhouetted wireframe. The silhouette effect is where only the outer edges of the mesh are drawn in addition a couple other lines that distinguish model features. Additionally, the edges are to be rendered to look like they were created by a vector monitor. With this project, I am aiming for an A or B grade.
+					</p>
+					<h3>Background</h3>
+					<p>
+						There are two key components to this project: the silhouette effect and vector monitor lines. My inspiration for the silhouette effect comes from a PlayStation game called Vib-Ribbon [1]. Although Vib-Ribbon only approximates this effect using at geometry instead of a specially rendered model. A more modern example released during the development of this project is Muffled Warfare [2], which perfectly demonstrates the effect.
+					</p>
+					<p>
+						The second component is to emulate the look of vector monitors. Vector monitors are an old display technology where graphics are rendered via an electron beam directly drawing lines as opposed to a grid of pixels as on raster monitors. These monitors where occasionally used in arcade games up until the mid 1980s including Asteroids, Tempest, Star Wars [3], and Battlezone [4]. As there are not pixels the output is fairly striking due to the lack of aliasing, especially when compared to contemporary display technologies.
+					</p>
+					<h3>Implementation</h3>
+					<p>
+						For this project I will be using SDL 2 to handle window creation and input, and for rendering graphics I will use OpenGL. The silhouette effect will be accomplished by detecting outline edges in the geometry shader which will then emit quads. The process is similar to an article I found on Silhouette Extraction [5]. Then the fragment shader will then render these lines to emulate the look of a vector monitor. I would also like to experiment with using bloom to create an even greater glowing effect.
+					</p>
+					<p>
+						Some potential challenges include obtaining and loading models, and figuring out how to detect lines that distinguish the model's features. To help with loading models I could use a library like Assimp. However, the method described above requires adjacency information which means that I will have to extend any model loading routine I find. Additionally, I will have to find models that are conducive to the silhouette effect without becoming a shapeless blob. This might be mitigated if I find a decent algorithm to detect distinguishing edges.
+					</p>
+					<p>
+						The development process will be documented in a blog which can be found here: <a href="http://bbernardoni.com/DGIProject/">http://bbernardoni.com/DGIProject/</a>
+					</p>
+					<h3>Perceptual Study</h3>
+					<p>
+						As the goal of this project is to create convincing representations for 3D geometry under the restrictions of a vector monitor style display, the perceptual study should evaluate the success of the goal. This can be done by letting participants inspect the model and then surveying them about the quality of the rendering effect. 
+					</p>
+					<h3>References</h3>
+					<p>
+						[1] <i>Vib-Ribbon</i>. PlayStation, NanaOn-Sha, 1999. Video Demonstration: <a href="https://www.youtube.com/watch?v=HhYa1WyeVsE">https://www.youtube.com/watch?v=HhYa1WyeVsE</a>
+					</p>
+					<p>
+						[2] <i>Muffled Warfare</i>. PC, Gattai Games, 2018. <a href="https://www.muffledwarfare.com/">https://www.muffledwarfare.com/</a>
+					</p>
+					<p>
+						[3] <i>Star Wars</i>. Arcade, Atari, 1983. Video Demonstration: <a href="https://www.youtube.com/watch?v=CbqFawQvdGE">https://www.youtube.com/watch?v=CbqFawQvdGE</a>
+					</p>
+					<p>
+						[4] <i>Battlezone</i>. Arcade, Atari, 1980. Video Demonstration: <a href="https://www.youtube.com/watch?v=zdfKy4c7yuc&t=8m15s">https://www.youtube.com/watch?v=zdfKy4c7yuc&t=8m15s</a>
+					</p>
+					<p>
+						[5] Rideout, Philip. "Silhouette Extraction" <i>The Little Grasshoper</i>. 24 October 2010. [Online]. Available: <a href="http://prideout.net/blog/?p=54">http://prideout.net/blog/?p=54</a>.
 					</p>
 				</div>
 			</div>
