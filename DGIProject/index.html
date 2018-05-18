@@ -52,12 +52,13 @@
 					<p>
 						Something about this being a blog. More description.
 					</p>
-					<div class="list-group" style="max-width: 300px;">
+					<div class="list-group" style="max-width: 400px;">
 						<a href="#0418" class="list-group-item">April 18, 2018: Setup</a>
 						<a href="#0421" class="list-group-item">April 21, 2018: The First Prototype</a>
 						<a href="#0429" class="list-group-item">April 29, 2018: Refactoring</a>
 						<a href="#0510" class="list-group-item">May 10, 2018: Project Specification</a>
 						<a href="#0511" class="list-group-item">May 11, 2018: Silhouette Effect</a>
+						<a href="#0518" class="list-group-item">May 18, 2018: Assimp and Fast Adjacency Generation</a>
 					</div>
 					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
@@ -89,7 +90,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<img src="proto1.png" class="img-responsive pull-right-sm" alt="glPolygonMode Wireframe">
+					<img src="proto1.png" class="img-responsive pull-left-sm" alt="glPolygonMode Wireframe">
 					<p>
 						The first method I tried was to use <code>glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)</code>. It is not a shader in itself, but a rendering option in OpenGL. However, as seen here this makes very thin aliased lines.
 					</p>
@@ -159,12 +160,34 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<img src="sil.png" class="img-responsive pull-right-sm" alt="Silhouette Effect">
+					<img src="sil.png" class="img-responsive pull-left-sm" alt="Silhouette Effect">
 					<p>
 						Since the last update I have successfully implemented a prototype for the silhouette effect. This was accomplished by modifying the shaders given <a href="http://prideout.net/blog/?p=54">here</a>. I started by extended the model loading algorithm to generate adjacency information. This is needed by the geometry shader to detect if an edge is an outline edge. The geometry shader was then adapted from the source above. As my code uses the perspective projection, the code had to be modified to account for the perspective divide.
 					</p>
 					<p>
 						There are several problems with the current implementation. First, to quickly code the model loading extension I used a naive algorithm that has a runtime of O(|V|²) where |V| is the number of vertices. For a simple model of 511 vertices running on my modest laptop, this takes about 4 seconds. I am fairly confident this can be reduced with a better algorithm. Another problem is that the model does not have a closed mesh so not all triangles have three adjacent triangles. Also, as the triangles are not filled in, the depth buffer cannot properly occlude lines behind the model. Finally, There are small gaps where two lines meet.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h2 id="0518">May 18, 2018: Assimp and Fast Adjacency Generation</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="newMod.png" class="img-responsive pull-right-sm" alt="New Model">
+					<p>
+						My goal this week was to try to use a new model with a closed mesh and to write a better adjacency generation algorithm.
+					</p>
+					<p>
+						First, I searched the Internet for a new model. I eventually found one that I liked. However, there was a problem. The model used a different file format than my previous model. To fixed this, I decided it was time to use a real model loading library. For this I choose to use <a href="http://www.assimp.org/">Assimp</a>. After building from source and some debugging, I got Assimp to load the old model. But, I encountered a problem when loading the new one. Once I got the model scaled correctly, I could not seem to get the silhouette algorithm to work properly. Even while rendering normally for debugging, the backface culling did not seem to be working. Eventually I discovered that for each outward facing triangle, the model contained a matching inward facing triangle. Hence why backface culling did not work. I did not want to deal with figuring out to deal with this, so instead I found <a href="https://www.turbosquid.com/3d-models/free-obj-mode-dummy/662719">another model</a>.
+					</p>
+					<p>
+						While debugging the problems with the new models, I also worked on improving the adjacency generation algorithm. In the previous update I used a naive method that took 4 seconds to process the old model. I found a rather simple <a href="https://gamedev.stackexchange.com/questions/62097/building-triangle-adjacency-data">algorithm</a> that uses a hashtable to generate the adjacency data in O(|V|). This is much faster and only took 100 milliseconds on my laptop, 40 times faster.
+					</p>
+					<p>
+						With these two changes I was able to generate the image displayed here. Nevertheless, there are still two problems that I discussed in the last post. The silhouettes are not being properly occlude and there are small gaps where two lines meet.
 					</p>
 				</div>
 			</div>
