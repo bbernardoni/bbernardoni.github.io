@@ -59,7 +59,9 @@
 						<a href="#0510" class="list-group-item">May 10, 2018: Project Specification</a>
 						<a href="#0511" class="list-group-item">May 11, 2018: Silhouette Effect</a>
 						<a href="#0518" class="list-group-item">May 18, 2018: Assimp and Fast Adjacency Generation</a>
+						<a href="#0521" class="list-group-item">May 21, 2018: Occlusion and Creases</a>
 					</div>
+					<hr>
 					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
 						Hello and welcome to my development blog for the final project of Computer Graphics and Interaction (DH2323). In the following posts, I will detail the development process behind the creation of the project.
@@ -77,6 +79,7 @@
 					<p>
 						Once I get a better idea of what I want to do with project, I will refactor the code to get rid of all the global variables and so that the code is completely my own. But first, now that I have something working to talk about, I am setting up this blog. For my next post, I plan to experiment with the shaders and hopefully develop an interesting prototype.
 					</p>
+					<hr>
 					<h2 id="0421">April 21, 2018: The First Prototype</h2>
 				</div>
 			</div>
@@ -106,10 +109,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<hr>
 					<h2 id="0429">April 29, 2018: Refactoring</h2>
 					<p>
 						Quick update here. I have been spending a little time refactoring the code. I abstracted some of the code into several classes so that it will be easier to work with. Additionally, I didn't like how the outer edges of the wireframe were aliased in the previous post. This led to me looking into bloom and finding a <a href="https://learnopengl.com/Advanced-Lighting/Bloom">tutorial</a> on it. I also looked at other OpenGL topics in the tutorial which helped clean up the code even more.
 					</p>
+					<hr>
 					<h2 id="0510">May 10, 2018: Project Specification</h2>
 					<p>
 						I have completed a submitted the first draft of my project specification. As such, I have committed to project goal. Following is the current version of the specification.
@@ -155,6 +160,7 @@
 					<p>
 						[5] Rideout, Philip. "Silhouette Extraction" <i>The Little Grasshoper</i>. 24 October 2010. [Online]. Available: <a href="http://prideout.net/blog/?p=54">http://prideout.net/blog/?p=54</a>.
 					</p>
+					<hr>
 					<h2 id="0511">May 11, 2018: Silhouette Effect</h2>
 				</div>
 			</div>
@@ -171,6 +177,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<hr>
 					<h2 id="0518">May 18, 2018: Assimp and Fast Adjacency Generation</h2>
 				</div>
 			</div>
@@ -188,6 +195,29 @@
 					</p>
 					<p>
 						With these two changes I was able to generate the image displayed here. Nevertheless, there are still two problems that I discussed in the last post. The silhouettes are not being properly occlude and there are small gaps where two lines meet.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+					<h2 id="0521">May 21, 2018: Occlusion and Creases</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="crease.png" class="img-responsive pull-right-sm" alt="New Model">
+					<p>
+						The main object of this update was to get occlusion working for the lines that are supposed to be hidden. The Silhouette Extraction article linked on the May 11th update gives a simple way of doing this. The "Spine Test" referenced was adapted from the paper <a href="http://gfx.cs.princeton.edu/pubs/Cole_2010_TFM/">Two Fast Methods for High-Quality Line Visibility</a>. The process involves rendering the depth buffer of the mesh to a texture and then depth test along the spine of the line using the texture. After a little debugging, the result is mostly what I was looking for. There are a few problems that I will describe later.
+					</p>
+					<p>
+						The other feature I wanted to add was crease lines. These lines are meant to distinguish where the model has hard edges. To implement this, I simply had to find the angle between normals of the triangles on either side of the edge. If these normals are more than 60 degrees apart, the line will be visible if it is not occluded.
+					</p>
+					<p>
+						Finally, I fixed the gap issue previous described by adding endcaps to the edges.
+					</p>
+					<p>
+						After adding these three features, I am getting closer to the intended visualization. The things that are still missing are more faded lines, experimenting with bloom, and possibly creating a better seen. However, as I mentioned before there are two flaws with the current implementation. First, there should really be lines where two meshes intersect. This can be seen where the bottom of the hand meets the wrist in this image. The solution unfortunately is outside the scope of this project as it would require advanced intersection tests to efficiently calculate the intersection paths of the meshes. Second, there are some issues with broken lines which is noticeable in the elbow joint of the picture. This occurs because of issues with Z-fighting in the depth buffer. I have already employed a couple tricks to reduce the frequency of the artifacts but I cannot find any further improvements.
 					</p>
 				</div>
 			</div>
