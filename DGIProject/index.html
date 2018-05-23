@@ -60,6 +60,7 @@
 						<a href="#0511" class="list-group-item">May 11, 2018: Silhouette Effect</a>
 						<a href="#0518" class="list-group-item">May 18, 2018: Assimp and Fast Adjacency Generation</a>
 						<a href="#0521" class="list-group-item">May 21, 2018: Occlusion and Creases</a>
+						<a href="#0523" class="list-group-item">May 23, 2018: Vector Lines and Bloom</a>
 					</div>
 					<hr>
 					<h2 id="0418">April 18, 2018: Setup</h2>
@@ -206,7 +207,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<img src="crease.png" class="img-responsive pull-right-sm" alt="New Model">
+					<img src="crease.png" class="img-responsive pull-left-sm" alt="New Model">
 					<p>
 						The main object of this update was to get occlusion working for the lines that are supposed to be hidden. The Silhouette Extraction article linked on the May 11th update gives a simple way of doing this. The "Spine Test" referenced was adapted from the paper <a href="http://gfx.cs.princeton.edu/pubs/Cole_2010_TFM/">Two Fast Methods for High-Quality Line Visibility</a>. The process involves rendering the depth buffer of the mesh to a texture and then depth test along the spine of the line using the texture. After a little debugging, the result is mostly what I was looking for. There are a few problems that I will describe later.
 					</p>
@@ -217,7 +218,33 @@
 						Finally, I fixed the gap issue previous described by adding endcaps to the edges.
 					</p>
 					<p>
-						After adding these three features, I am getting closer to the intended visualization. The things that are still missing are more faded lines, experimenting with bloom, and possibly creating a better seen. However, as I mentioned before there are two flaws with the current implementation. First, there should really be lines where two meshes intersect. This can be seen where the bottom of the hand meets the wrist in this image. The solution unfortunately is outside the scope of this project as it would require advanced intersection tests to efficiently calculate the intersection paths of the meshes. Second, there are some issues with broken lines which is noticeable in the elbow joint of the picture. This occurs because of issues with Z-fighting in the depth buffer. I have already employed a couple tricks to reduce the frequency of the artifacts but I cannot find any further improvements.
+						After adding these three features, I am getting closer to the intended visualization. The things that are still missing are more faded lines, experimenting with bloom, and possibly creating a better scene. However, as I mentioned before there are two flaws with the current implementation. First, there should really be lines where two meshes intersect. This can be seen where the bottom of the hand meets the wrist in this image. The solution unfortunately is outside the scope of this project as it would require advanced intersection tests to efficiently calculate the intersection paths of the meshes. Second, there are some issues with broken lines which is noticeable in the elbow joint of the picture. This occurs because of issues with Z-fighting in the depth buffer. I have already employed a couple tricks to reduce the frequency of the artifacts but I cannot find any further improvements.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+					<h2 id="0523">May 23, 2018: Vector Lines and Bloom</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="bloom.png" class="img-responsive pull-right-sm" alt="New Model">
+					<p>
+						Now that most of the correct lines are being properly selected, it is now time to turn my attention to the appearance of the rendered lines. To make the vector lines I simply made the lines bigger and then improved the fragment shader. Now the fragment shader colors each fragment as inversely proportional to the distance to the spine of the line. This effect can be seen in the left half of the image.
+					</p>
+					<p>
+						Next, I experimented with bloom. I had run some tests earlier, so it was not much work to reenable it. The result is shown in the right half of the image. In the end I decided that bloom does not really add anything and instead just makes the image blurrier. After all the fragment shader accomplishes the same effect of glowing lines, so bloom is just redundant.
+					</p>
+					<p>
+						I also slightly improved the depth testing since the last update. The new method was inspired by the source code of the Two Fast Methods paper. The actually implementation is quite different but the concepts are the same. There still are issues with Z-fighting but they are slightly reduced.
+					</p>
+					<p>
+						I forgot to mention this in the project specification but another target of this project was to have the algorithm run in real-time. Running on my relatively lower powered laptop with integrated graphics, the algorithm takes 1.134 milliseconds per frame to render the model in the image. Even if the scene is more complex with many more lines, the algorithm still should be able to run fairly smoothly in real-time.
+					</p>
+					<p>
+						At this point, my code is mostly complete. It can use some cleaning and refactoring, but it is feature complete. As such I will be focusing on writing the report.
 					</p>
 				</div>
 			</div>
