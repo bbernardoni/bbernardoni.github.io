@@ -50,7 +50,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-						Something about this being a blog. More description.
+						Something about this being a blog. More description. I'll actually write this someday I swear (probably after project submission).
 					</p>
 					<div class="list-group" style="max-width: 400px;">
 						<a href="#0418" class="list-group-item">April 18, 2018: Setup</a>
@@ -61,6 +61,7 @@
 						<a href="#0518" class="list-group-item">May 18, 2018: Assimp and Fast Adjacency Generation</a>
 						<a href="#0521" class="list-group-item">May 21, 2018: Occlusion and Creases</a>
 						<a href="#0523" class="list-group-item">May 23, 2018: Vector Lines and Bloom</a>
+						<a href="#0525" class="list-group-item">May 25, 2018: Z-Bias</a>
 					</div>
 					<hr>
 					<h2 id="0418">April 18, 2018: Setup</h2>
@@ -245,6 +246,15 @@
 					</p>
 					<p>
 						At this point, my code is mostly complete. It can use some cleaning and refactoring, but it is feature complete. As such I will be focusing on writing the report.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+					<h2 id="0525">May 25, 2018: Z-Bias</h2>
+					<p>
+						Today is the day that the project is due. As such this will be a short update, so I can get back to finishing the report. While, reviewing the related works I noticed a section about z-biasing. I had tried using this to fix the z-fighting problem before but I could not get it to work properly. It seemed to work close up but didn't occlude anything when far away. Well, I realized that I had tried applying the bias by a constant amount in screen space and clip space but not view space where it should have been. So, after a quick hack, I got z-biasing working properly. There still are some occasional graphical artifacts, but for the most part they were gone. My suspicion is that the last artifacts are due to inopportune edge placements in the model rather than z-fighting.
 					</p>
 				</div>
 			</div>
