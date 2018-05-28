@@ -1,0 +1,70 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+\def\t{0.4}
+\def\w{4.0}
+\def\off{0.5}
+
+\def\rtT{1.73205080756887729}
+\def\x{(2/\rtT*(\w-5*\t))}
+\def\y{(2/\rtT*(\w-6*\t))}
+\def\d{(\t*2/\rtT)}
+\def\e{(\t*\rtT)}
+\def\h{(\x+\y+2*\e+2*\d)}
+
+%Coords 
+\coordinate(b1o1) at (0,0);
+\coordinate(b1o2) at (0,{\h});
+\coordinate(b1o3) at ({\w-3*\t},{\h-\e-\y/2});
+\coordinate(b1o4) at ({\t},{\e+\x+\d});
+\coordinate(b1o5) at ({\w-2*\t},{\e+\x/2});
+\coordinate(b1l1) at ({\t},{\e});
+\coordinate(b1l2) at ({\t},{\e+\x});
+\coordinate(b1l3) at ({\w-4*\t},{\e+\x/2});
+\coordinate(b1u1) at ({\t},{\h-\e-\y});
+\coordinate(b1u2) at ({\t},{\h-\e});
+\coordinate(b1u3) at ({\w-5*\t},{\h-\e-\y/2});
+\coordinate(b1b1) at ({2*\t},0);
+\coordinate(b2o1) at ({\w},{\h+\e+\x/2});
+\coordinate(b2o2) at ({\w},{\e+\x/2});
+\coordinate(b2o3) at ({3*\t},{2*\e+\x/2+\y/2});
+\coordinate(b2o4) at ({\w-\t},{\h-\x/2-\d});
+\coordinate(b2o5) at ({2*\t},{\h});
+\coordinate(b2l1) at ({\w-\t},{\h+\x/2});
+\coordinate(b2l2) at ({\w-\t},{\h-\x/2});
+\coordinate(b2l3) at ({4*\t},{\h});
+\coordinate(b2u1) at ({\w-\t},{2*\e+\x/2+\y});
+\coordinate(b2u2) at ({\w-\t},{2*\e+\x/2});
+\coordinate(b2u3) at ({5*\t},{2*\e+\x/2+\y/2});
+\coordinate(b2b1) at ({\w-2*\t},{\h+\e+\x/2});
+
+%Green
+%\path[fill=green] (-\off,-\off) -- (-\off,{\h+\e+\x/2+\off}) -- ({\w+\off},{\h+\e+\x/2+\off}) -- ({\w+\off},-\off);
+
+%Lines
+\path[fill=red] (b1o1) -- (b1o2) -- (b1o3) -- (b1o4) -- (b1o5);
+\path[fill=white] (b1l1) -- (b1l2) -- (b1l3);
+\path[fill=white] (b1u1) -- (b1u2) -- (b1u3);
+\path[fill=red] (b2o1) -- (b2o2) -- (b2o3) -- (b2o4) -- (b2o5);
+\path[fill=white] (b2l1) -- (b2l2) -- (b2l3);
+\path[fill=white] (b2u1) -- (b2u2) -- (b2u3);
+\path[fill=black!30!red] (b1o1) -- (b1b1) -- (b2o2) -- (b1o5);
+\path[fill=black!50!red] (b2o2) -- (b1o5) -- (b1o4) -- (b2o3);
+\path[fill=black!30!red] (b2o3) -- (b1o4) -- (b1o3) -- (b2o4);
+\path[fill=black!50!red] (b1o3) -- (b2o4) -- (b2o5) -- (b1o2);
+\path[fill=black!30!red] (b1o2) -- (b2o5) -- (b2o1) -- (b2b1);
+\draw[ultra thick] (b1b1) -- (b1o1) -- (b1o2) -- (b2b1) -- (b2o1) -- (b2o2) -- (b1b1) -- (b1o1);
+\draw[ultra thick] (b1l1) -- (b1l2) -- (b1l3) -- (b1l1) -- (b1l2);
+\draw[ultra thick] (b1u1) -- (b1u2) -- (b1u3) -- (b1u1) -- (b1u2);
+\draw[ultra thick] (b2l1) -- (b2l2) -- (b2l3) -- (b2l1) -- (b2l2);
+\draw[ultra thick] (b2u1) -- (b2u2) -- (b2u3) -- (b2u1) -- (b2u2);
+\draw[ultra thick] (b1o2) -- (b1o3) -- (b1o4) -- (b1o5) -- (b1o1);
+\draw[ultra thick] (b2o2) -- (b2o3) -- (b2o4) -- (b2o5) -- (b2o1);
+\draw[ultra thick] (b1o2) -- (b2o5);
+\draw[ultra thick] (b1o3) -- (b2o4);
+\draw[ultra thick] (b2o3) -- (b1o4);
+\draw[ultra thick] (b2o2) -- (b1o5);
+\end{tikzpicture}
+\end{document}
