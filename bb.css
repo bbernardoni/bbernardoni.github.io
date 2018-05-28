@@ -73,9 +73,15 @@ hr {
 }
 @media (max-width: 767px) {
 	.pull-right-sm {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
 		padding-bottom: 10px;
 	}
 	.pull-left-sm {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
 		padding-bottom: 10px;
 	}
 }

@@ -48,11 +48,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-7 col-sm-5">
 					<p>
 						Something about this being a blog. More description. I'll actually write this someday I swear (probably after project submission).
 					</p>
-					<div class="list-group" style="max-width: 400px;">
+				</div>
+				<div class="col-md-5 col-sm-7">
+					<div class="list-group">
 						<a href="#0418" class="list-group-item">April 18, 2018: Setup</a>
 						<a href="#0421" class="list-group-item">April 21, 2018: The First Prototype</a>
 						<a href="#0429" class="list-group-item">April 29, 2018: Refactoring</a>
@@ -62,7 +64,12 @@
 						<a href="#0521" class="list-group-item">May 21, 2018: Occlusion and Creases</a>
 						<a href="#0523" class="list-group-item">May 23, 2018: Vector Lines and Bloom</a>
 						<a href="#0525" class="list-group-item">May 25, 2018: Z-Bias</a>
+						<a href="#0528" class="list-group-item">May 28, 2018: Final Submission</a>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<hr>
 					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
@@ -77,7 +84,7 @@
 					<p>
 						For the sake of getting a prototype up and running, I have copied some of the code from these two tutorials into Visual Studios and after some debugging, I was able to write a working framework for my prototype. Currently, it is able to load and render textured OBJ files with shading. I have also implemented rudimentary movement controls for the camera. A screen shot is displayed below.
 					</p>
-					<img src="setup.png" class="img-responsive pad-bot" alt="Set-Up Code Results">
+					<img src="setup.png" class="img-responsive center-block pad-bot" alt="Set-Up Code Results">
 					<p>
 						Once I get a better idea of what I want to do with project, I will refactor the code to get rid of all the global variables and so that the code is completely my own. But first, now that I have something working to talk about, I am setting up this blog. For my next post, I plan to experiment with the shaders and hopefully develop an interesting prototype.
 					</p>
@@ -208,7 +215,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<img src="crease.png" class="img-responsive pull-left-sm" alt="New Model">
+					<img src="crease.png" class="img-responsive center-block pad-bot" alt="New Model">
 					<p>
 						The main object of this update was to get occlusion working for the lines that are supposed to be hidden. The Silhouette Extraction article linked on the May 11th update gives a simple way of doing this. The "Spine Test" referenced was adapted from the paper <a href="http://gfx.cs.princeton.edu/pubs/Cole_2010_TFM/">Two Fast Methods for High-Quality Line Visibility</a>. The process involves rendering the depth buffer of the mesh to a texture and then depth test along the spine of the line using the texture. After a little debugging, the result is mostly what I was looking for. There are a few problems that I will describe later.
 					</p>
@@ -231,7 +238,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<img src="bloom.png" class="img-responsive pull-right-sm" alt="New Model">
+					<img src="bloom.png" class="img-responsive pull-left-sm" alt="Bloom Test">
 					<p>
 						Now that most of the correct lines are being properly selected, it is now time to turn my attention to the appearance of the rendered lines. To make the vector lines I simply made the lines bigger and then improved the fragment shader. Now the fragment shader colors each fragment as inversely proportional to the distance to the spine of the line. This effect can be seen in the left half of the image.
 					</p>
@@ -256,6 +263,97 @@
 					<p>
 						Today is the day that the project is due. As such this will be a short update, so I can get back to finishing the report. While, reviewing the related works I noticed a section about z-biasing. I had tried using this to fix the z-fighting problem before but I could not get it to work properly. It seemed to work close up but didn't occlude anything when far away. Well, I realized that I had tried applying the bias by a constant amount in screen space and clip space but not view space where it should have been. So, after a quick hack, I got z-biasing working properly. There still are some occasional graphical artifacts, but for the most part they were gone. My suspicion is that the last artifacts are due to inopportune edge placements in the model rather than z-fighting.
 					</p>
+					<hr>
+					<h2 id="0528">May 28, 2018: Final Submission</h2>
+					<img src="dummyInHallway.png" class="img-responsive center-block pad-bot" alt="Screen shot of the final implementation">
+					<p>
+						The final project has officially been turned in. A couple of days late, since I kept finding small improvements that led to uncovering subtle bugs that take hours of debugging to fix. But after a three days of crunch, it is complete and I can celebrate by taking the rest of the day off... at least after I finish this post. I suppose its fitting since its my birthday anyway.
+					</p>
+					<p>
+						A lot of things have changed since the last post. So I'll go through each item in turn and them wrap up this post with discussing the final submission.
+					</p>
+					<h3>New model</h3>
+					<p>
+						Probably the most noticeable thing in the picture above is that I introduced a new model. It is a sci-fi themed hallway that I got from <a href="https://www.turbosquid.com/3d-models/ship-hallway-lwo-free/205599">here</a>. By introducing a bigger model I found several bugs which I will discuss in the upcoming sections. One simple bug was that I was not handling edges with only one bordering face properly. While generating adjacency data, if a triangle is found to not have an adjacent face on any side an new vertex will be added and its index will be given to complete the adjacency data. If multiple of these border edges are found they will reference the same vertex. Additionally, this vertex is detectable in the geometry shader since it has a very large x position value.
+					</p>
+					<h3>Clipping</h3>
+					<p>
+						The first thing I noticed when loading the hallway is that the long floorboards start behaving weirdly when one half goes behind the camera. I eventually figured out that is was because the point behind the camera has a negative homogeneous w component which messed up later calculations for computing position offsets. To solve this I added a clipping algorithm to clip each edge. I implemented the <a href="https://en.wikipedia.org/wiki/Cohen–Sutherland_algorithm">Cohen-Sutherland algorithm</a> clipping on the six standard homogeneous planes with the help of <a href="https://chaosinmotion.blog/2016/05/22/3d-clipping-in-homogeneous-coordinates/">this article</a>.
+					</p>
+					<h3>Fragment Interpolation</h3>
+					<p>
+						Even after adding clipping, the lines would still behave weirdly. After a long time of debugging, I determined that the some of the variables sent to the vector lines fragment shader were being interpolated incorrectly. This was fixed for one variable by passing the full homogeneous coordinate and performing the perspective divide in the fragment shader and fixed for the other by adding the <code>noperspective</code> qualifier.
+					</p>
+					<h3>Better Bloom</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="bloomFinal.png" class="img-responsive pull-right-sm" alt="Final Bloom Comparison (no bloom right, with bloom left)">
+					<p>
+						While I was trying to describe how I tried to add bloom and didn't like its effect in the report, I realized I had for got one simple step. After the image was blurred it is added to the original to form the final image. I also added an option to scale the blurred component by a fixed factor. However, a factor of 1 worked the best. After this change, the results were much better. A comparison can be seen in the image where on the left is an 8 pixel half-width rendering without bloom and the right is a 4 pixel half-width rendering with bloom. With bloom the lines seem much smoother and the glow effect is greater.
+					</p>
+					<p>
+						The only thing I did not like was how applying the Gaussian blur took much longer than the rest of the rendering loop. At first, to increase the blur strength a 9-tap blur was repeated four times. However, I later found out this is nearly equivalent to a 17-tap blur applied once. Then, even further improvement came from the algorithm presented in <a href="http://rastergrid.com/blog/2010/09/efficient-gaussian-blur-with-linear-sampling/">this article</a>. This method takes advantage of the GPU's texture filtering by sampling between texels to calculate two weights at a time. Now, only one iteration of a 9-tap filter is needed to achieve the same results. In the end, adding bloom only takes 1.99 milliseconds per frame.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Final Submission</h3>
+					<p>
+						The final project submission includes the <a href="projectReport.pdf">project report</a>, <a href="#0510">project specification</a>, <a href="https://github.com/bbernardoni/DGIProject">code</a>, <a href="finalProjectBinary.zip">binary executable</a>, screen shots (all over this blog), and a video demonstration (see below). In the report I cover a lot of the same information found in this blog. Although there are a few additional things I'll discuss below.
+					</p>
+					<h4>Timing Analysis</h4>
+					<p>
+						A target of this project was to have the application function in real-time. We can analyze this by testing frame rate. Using my relatively lower powered laptop with integrated graphics, the algorithm runs at 241.0 frames per second to render two test model of 2956 (dummy) and 6595 (hallway) vertices seen in the image at the top of this post. This equates to 4.15 milliseconds per frame where 1.99 milliseconds come from the bloom step which is constant for a given screen resolution. Another timing test shows that one, two, and three dummies take 3.154, 3.294, and 3.457 milliseconds per frame (= 317.1, 303.5, and 289.2 fps) respectively to render. This suggests that the method scales linearly with scene complexity. Even with a more complex scene comprised of more lines, the algorithm still should be able to run smoothly in real-time especially with better hardware.
+					</p>
+					<h4>Perceptual Study</h4>
+					<p>
+						As part of this project, I needed to give a description of a potential perceptual study. As the goal of this project was to create convincing representations for 3D geometry, a perceptual study should evaluate the effectiveness of the vector line representations. One possible method would be to test participants on their ability to identify objects while varying the rendering algorithm. This would provide incite as to how recognizable vector line images are. More detail about the study design can be found in the report.
+					</p>
+					<h4>Future Work</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img src="ext.png" class="img-responsive pull-left-sm" alt="Improvable cases of a faraway model (left) and intersecting geometry (right)">
+					<p>
+						Also for the report, I proposed several possible extensions to this project. As the lines are constant width, a model that is far away will seem cramped like the model on the left side on this image. The model could be displayed more sparsely by selecting edges more restrictively. 
+					</p>
+					<p>
+						The test models used for this project were conducive towards the application of the algorithm. However, other models will not have as many distinguishing lines. This could be solved by implementing some of the other lines described by <a href="https://ieeexplore.ieee.org/document/7516335/">Al-Rousan et al</a>. Edges can also be drawn at lines of intersecting geometry as exhibited where the hand meets the wrist on the right side of the image. The solution unfortunately is outside the scope of this project as it would require advanced intersection tests to efficiently calculate the intersection paths of the meshes.
+					</p>
+					<p>
+						Since the edges are taken directly from the underlying models, curved lines appear jagged. A method for smoothing these paths like presented in <a href="https://ieeexplore.ieee.org/document/4472706/">Wang et al.</a> could be applied.
+					</p>
+					<p>
+						For the most part the overdraw method hides the gaps between edges. But, at T-intersections of lines the overdrawn part will stick out as seen in the top of the wrist.
+					</p>
+					<p>
+						Finally, in the current implementation all the lines are pure white. Instead the scene could be made more interesting by varying color and brightness. Even basic shading would be possible.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Video Demonstration and Screen Shots</h3>
+					<p>
+						Finally, I will close this post with the video demo and some screen shots.
+					</p>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rua4SXAhYro" frameborder="0" allowfullscreen></iframe>
+					</div><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<img src="arch.png" class="img-responsive center-block pad-bot" alt="Arches">
+					<img src="beneathTheFloorboards.png" class="img-responsive center-block pad-bot" alt="Beneath The Floorboards">
+				</div>
+				<div class="col-md-6">
+					<img src="hallway.png" class="img-responsive center-block pad-bot" alt="Hallway">
+					<img src="dummy.png" class="img-responsive center-block pad-bot" alt="Dummy">
 				</div>
 			</div>
 		</div><br>
