@@ -23,9 +23,13 @@
 \coordinate(b1l1) at ({\t},{\e});
 \coordinate(b1l2) at ({\t},{\e+\x});
 \coordinate(b1l3) at ({\w-4*\t},{\e+\x/2});
+\coordinate(b1l4) at ({2*\t},{\e+\x-\t/\rtT});
+\coordinate(b1l5) at ({2*\t},{\e+\t/\rtT});
 \coordinate(b1u1) at ({\t},{\h-\e-\y});
 \coordinate(b1u2) at ({\t},{\h-\e});
 \coordinate(b1u3) at ({\w-5*\t},{\h-\e-\y/2});
+\coordinate(b1u4) at ({2*\t},{\h-\e-\t/\rtT});
+\coordinate(b1u5) at ({2*\t},{\h-\e-\y+\t/\rtT});
 \coordinate(b1b1) at ({2*\t},0);
 \coordinate(b2o1) at ({\w},{\h+\e+\x/2});
 \coordinate(b2o2) at ({\w},{\e+\x/2});
@@ -35,9 +39,13 @@
 \coordinate(b2l1) at ({\w-\t},{\h+\x/2});
 \coordinate(b2l2) at ({\w-\t},{\h-\x/2});
 \coordinate(b2l3) at ({4*\t},{\h});
+\coordinate(b2l4) at ({\w-2*\t},{\h-\x/2+\t/\rtT});
+\coordinate(b2l5) at ({\w-2*\t},{\h+\x/2-\t/\rtT});
 \coordinate(b2u1) at ({\w-\t},{2*\e+\x/2+\y});
 \coordinate(b2u2) at ({\w-\t},{2*\e+\x/2});
 \coordinate(b2u3) at ({5*\t},{2*\e+\x/2+\y/2});
+\coordinate(b2u4) at ({\w-2*\t},{2*\e+\x/2+\t/\rtT});
+\coordinate(b2u5) at ({\w-2*\t},{2*\e+\x/2+\y-\t/\rtT});
 \coordinate(b2b1) at ({\w-2*\t},{\h+\e+\x/2});
 
 %Green
@@ -51,10 +59,14 @@
 \path[fill=white] (b2l1) -- (b2l2) -- (b2l3);
 \path[fill=white] (b2u1) -- (b2u2) -- (b2u3);
 \path[fill=black!30!red] (b1o1) -- (b1b1) -- (b2o2) -- (b1o5);
-\path[fill=black!50!red] (b2o2) -- (b1o5) -- (b1o4) -- (b2o3);
+\path[fill=black!70!red] (b2o2) -- (b1o5) -- (b1o4) -- (b2o3);
 \path[fill=black!30!red] (b2o3) -- (b1o4) -- (b1o3) -- (b2o4);
-\path[fill=black!50!red] (b1o3) -- (b2o4) -- (b2o5) -- (b1o2);
+\path[fill=black!70!red] (b1o3) -- (b2o4) -- (b2o5) -- (b1o2);
 \path[fill=black!30!red] (b1o2) -- (b2o5) -- (b2o1) -- (b2b1);
+\path[fill=black!50!red] (b1u1) -- (b1u2) -- (b1u4) -- (b1u5);
+\path[fill=black!50!red] (b1l1) -- (b1l2) -- (b1l4) -- (b1l5);
+\path[fill=black!50!red] (b2u1) -- (b2u2) -- (b2u4) -- (b2u5);
+\path[fill=black!50!red] (b2l1) -- (b2l2) -- (b2l4) -- (b2l5);
 \draw[ultra thick] (b1b1) -- (b1o1) -- (b1o2) -- (b2b1) -- (b2o1) -- (b2o2) -- (b1b1) -- (b1o1);
 \draw[ultra thick] (b1l1) -- (b1l2) -- (b1l3) -- (b1l1) -- (b1l2);
 \draw[ultra thick] (b1u1) -- (b1u2) -- (b1u3) -- (b1u1) -- (b1u2);
@@ -66,5 +78,9 @@
 \draw[ultra thick] (b1o3) -- (b2o4);
 \draw[ultra thick] (b2o3) -- (b1o4);
 \draw[ultra thick] (b2o2) -- (b1o5);
+\draw[ultra thick] (b1u4) -- (b1u5);
+\draw[ultra thick] (b1l4) -- (b1l5);
+\draw[ultra thick] (b2u4) -- (b2u5);
+\draw[ultra thick] (b2l4) -- (b2l5);
 \end{tikzpicture}
 \end{document}
