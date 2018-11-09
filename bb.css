@@ -23,13 +23,47 @@ hr {
 }
 .thumb {
 	background-color: #d0d0d0;
-	border-color: #bbb #bbb #d02929;
-    border-bottom-width: 5px;
-	padding-bottom: 0;
+	border-color: #bbb;
+    border-bottom-width: 25px;
+	padding: 0px;
 }
 .thumb:hover {
 	background-color: #bbb;
-	border-bottom-color: #ff2929;
+}
+.thumb > img {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+.thumb-label {
+	font-size: 16px;
+	color: #fff;
+    margin-bottom: -24px;
+    padding-top: 2px;
+	font-weight: 700;
+}
+.thumb-graphics {
+	border-bottom-color: #d02929;
+}
+.thumb-graphics:hover {
+	border-bottom-color: #b00909;
+}
+.thumb-ai {
+	border-bottom-color: #29d029;
+}
+.thumb-ai:hover {
+	border-bottom-color: #09b009;
+}
+.thumb-game {
+	border-bottom-color: #2929d0;
+}
+.thumb-game:hover {
+	border-bottom-color: #0909b0;
+}
+.thumb-asm {
+	border-bottom-color: #d029d0;
+}
+.thumb-asm:hover {
+	border-bottom-color: #b009b0;
 }
 .navbar-default .navbar-toggle .icon-bar {
 	background-color: white;

@@ -50,9 +50,12 @@
 			<div class="row">
 				<div class="col-sm-7">
 					<p>
-						Hello and welcome to my development blog for the final project of Computer Graphics and Interaction (DH2323). In the following posts, I will detail the development process behind the creation of the project.
+						This project renders 3D geometry as silhouetted wireframe in real-time with a movable camera. The edges are to be rendered to look like they were created by a vector monitor. I was the sole developer of this project and used OpenGL and SDL to handle graphics and windowing. An example screeshot can be seen below.
 					</p>
-					<img src="dummyInHallway.png" class="img-responsive center-block pad-bot" alt="Screen shot of the final implementation">
+					<p>
+						The rest of this page is mostly a development blog. The final description, a video demo, and screenshots are found at the end. Click the button in "Jump to post" to skip to these sections.
+					</p>
+					<img src="dummyInHallway.png" class="img-responsive center-block pad-bot" alt="Screenshot of the final implementation">
 				</div>
 				<div class="col-sm-5">
 					<h3 style="margin-top: 10px;">Jump to post</h3>
@@ -66,7 +69,9 @@
 						<a href="#0521" class="list-group-item">May 21, 2018: Occlusion and Creases</a>
 						<a href="#0523" class="list-group-item">May 23, 2018: Vector Lines and Bloom</a>
 						<a href="#0525" class="list-group-item">May 25, 2018: Z-Bias</a>
-						<a href="#0528" class="list-group-item">May 28, 2018: Final Submission</a>
+						<a href="#0528" class="list-group-item">May 28, 2018: Final Update</a>
+						<a href="#finalSub" class="list-group-item">Final Description</a>
+						<a href="#demo" class="list-group-item">Video Demo and Screenshots</a>
 					</div>
 				</div>
 			</div>
@@ -75,13 +80,16 @@
 					<hr>
 					<h2 id="0418">April 18, 2018: Setup</h2>
 					<p>
+						Hello and welcome to my development blog for the final project of Computer Graphics and Interaction (DH2323). In the following posts, I will detail the development process behind the creation of the project.
+					</p>
+					<p>
 						The goal of the project is to create and document something related to the objectives of the class. This is very open ended giving me a wide array of topics to choose from. As of now, I am not entirely sure what I want to do, but I have a couple ideas that I want to play around with before settling of a project specification.
 					</p>
 					<p>
 						Before I can work on a prototype for the project, I first needed do some setup. Since we have used SDL for the labs, I choose to use it to handle window creation and input. However, I decided to use the more updated SDL 2 instead of SDL 1 we used in the labs. To help me learn SDL and setup the prototype I used Lazy Foo' Productions <a href="http://lazyfoo.net/tutorials/SDL/index.php">SDL Tutorials</a>. For rendering graphics I choose to use OpenGL. Again, as I do not have a lot of experience with OpenGL I setup my environment with the help of an <a href="http://www.opengl-tutorial.org/">OpenGL tutorial</a>.
 					</p>
 					<p>
-						For the sake of getting a prototype up and running, I have copied some of the code from these two tutorials into Visual Studios and after some debugging, I was able to write a working framework for my prototype. Currently, it is able to load and render textured OBJ files with shading. I have also implemented rudimentary movement controls for the camera. A screen shot is displayed below.
+						For the sake of getting a prototype up and running, I have copied some of the code from these two tutorials into Visual Studios and after some debugging, I was able to write a working framework for my prototype. Currently, it is able to load and render textured OBJ files with shading. I have also implemented rudimentary movement controls for the camera. A screenshot is displayed below.
 					</p>
 					<img src="setup.png" class="img-responsive center-block pad-bot" alt="Set-Up Code Results">
 					<p>
@@ -263,8 +271,8 @@
 						Today is the day that the project is due. As such this will be a short update, so I can get back to finishing the report. While, reviewing the related works I noticed a section about z-biasing. I had tried using this to fix the z-fighting problem before but I could not get it to work properly. It seemed to work close up but didn't occlude anything when far away. Well, I realized that I had tried applying the bias by a constant amount in screen space and clip space but not view space where it should have been. So, after a quick hack, I got z-biasing working properly. There still are some occasional graphical artifacts, but for the most part they were gone. My suspicion is that the last artifacts are due to inopportune edge placements in the model rather than z-fighting.
 					</p>
 					<hr>
-					<h2 id="0528">May 28, 2018: Final Submission</h2>
-					<img src="dummyInHallway.png" class="img-responsive center-block pad-bot" alt="Screen shot of the final implementation">
+					<h2 id="0528">May 28, 2018: Final Update</h2>
+					<img src="dummyInHallway.png" class="img-responsive center-block pad-bot" alt="Screenshot of the final implementation">
 					<p>
 						The final project has officially been turned in. A couple of days late, since I kept finding small improvements that led to uncovering subtle bugs that take hours of debugging to fix. But after a three days of crunch, it is complete and I can celebrate by taking the rest of the day off... at least after I finish this post. I suppose its fitting since its my birthday anyway.
 					</p>
@@ -299,9 +307,9 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Final Submission</h3>
+					<h3 id="finalSub">Final Submission</h3>
 					<p>
-						The final project submission includes the <a href="projectReport.pdf">project report</a>, <a href="#0510">project specification</a>, <a href="https://github.com/bbernardoni/DGIProject">code</a>, <a href="finalProjectBinary.zip">binary executable</a>, screen shots (all over this blog), and a video demonstration (see below). In the report I cover a lot of the same information found in this blog. Although there are a few additional things I'll discuss below.
+						The final project submission includes the <a href="projectReport.pdf">project report</a>, <a href="#0510">project specification</a>, <a href="https://github.com/bbernardoni/DGIProject">code</a>, <a href="finalProjectBinary.zip">binary executable</a>, screenshots (all over this blog), and a video demonstration (see below). In the report I cover a lot of the same information found in this blog. Although there are a few additional things I'll discuss below.
 					</p>
 					<h4>Timing Analysis</h4>
 					<p>
@@ -336,9 +344,9 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Video Demonstration and Screen Shots</h3>
+					<h3 id="demo">Video Demonstration and Screenshots</h3>
 					<p>
-						Finally, I will close this post with the video demo and some screen shots.
+						Finally, I will close this post with the video demo and some screenshots.
 					</p>
 					<div class="embed-responsive embed-responsive-16by9">
 						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rua4SXAhYro" frameborder="0" allowfullscreen></iframe>
