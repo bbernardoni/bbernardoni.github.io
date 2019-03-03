@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Ascend</title>
+
+		<link rel="shortcut icon" href="../res/BB.ico" type="image/x-icon">
+		<link rel="icon" href="../res/BB.ico" type="image/x-icon">
+	
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link href="../bb.css" rel="stylesheet">
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+			$('#nav').load('../nav.html');
+		});
+		</script>
+	</head>
+	<body>
+		<div id="nav"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-7">
+					<h2>Ascend</h2>
+				</div>
+				<div class="col-sm-5">
+					<a href="https://github.com/bbernardoni/Ascend" class="btn btn-default center-block pad-but" role="button">
+						<img src="../res/GitHub.png" height="30" />
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>
+						Ascend is a 2D horror puzzle platformer set in a dark laboratory from which the
+						player must escape. They must navigate the monster filled rooms with their trusty
+						lantern. It was built with Unity by a group of students.
+						For this project, I helped lead programming among four programmers.
+						I worked on the software architecture, save/respawn system, gameplay mechanics 
+						such as player movement and movable boxes, UI system, and more.
+					</p>
+					<h3>Video Demonstration</h3>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/TSwcLPlqwc8" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<h3>Teamwork</h3>
+					<p>
+						During Spring 2019, I lead the programming team. This involved leading the direction
+						of code design, helping assign programming tasks, and performing code reviews.
+						Also, as several members were new to Unity, I assisted in recommending tutorials,
+						teaching basic concepts, and answering questions.
+					</p>
+					<h4>Team members</h4>
+					<p>
+						Game Manager: Josh Burke <br>
+						Game Programmers: Anmol Agarwal, Will Bauer, Josh Burke, Bennett Bernardoni <br>
+						Artists: Aras Yazgan, Litong Zeng <br>
+						Game Designer: Andre Garner <br>
+						Audio Creator: Will Bauer <br>
+						Past Contributors: Sarah Elizabeth Anderson, Peter (Zehua) Chen, Diana Huang, Anirudh Sivaraman
+					</p>
+					<h3>Programming Contributions</h3>
+					<p>
+						My first contribution to the project was implementing movable boxes that could be pushed
+						and pulled but wouldn't move when being jumped on. Although it isn't shown in the video demo
+						the boxes will also fall when pushed off an edge. Next, I created player death and respawn
+						system that fades the screen and reloads the previous save. Then, I added the fuel system
+						to the lantern so it gradually dims until it is refilled at an oil barrel.
+					</p>
+					<p>
+						I also worked on adding functionality to systems created by other programmers.
+						For the save system, I added a clearer and easier to use API.
+						I simplified the implementation of the pause menu to allow easier extension.
+						I created an interactables parent class to increase code reusability across
+						all interactable objects.
+					</p>
+					<p>
+						Overall, I spent quite a bit of time refactoring the architecture of the code to
+						improve consistency, simplicity, maintainability, and extensibility. This helped make
+						the code able to be understood and worked on by all our team members regardless of their
+						experience level. It also resolved a couple hidden bugs.
+					</p>
+				</div>
+			</div>
+		</div><br>
+	</body>
+</html>
