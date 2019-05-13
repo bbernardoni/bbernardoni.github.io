@@ -70,6 +70,35 @@
 						});
 					}
 					</script>
+					<input type="file" name="fileToUpload" id="fileToUpload" multiple>
+					<a href="#" onclick="putTest();">Put</a>
+					<script>
+					function putTest() {
+						var file = $('#fileToUpload')[0].files[0];
+						$.ajax({
+							type: "PUT",
+							url: "test.txt",
+							xhr: function () {
+								var myXhr = $.ajaxSettings.xhr();
+								//if (myXhr.upload) {
+								//	myXhr.upload.addEventListener('progress', that.progressHandling, false);
+								//}
+								return myXhr;
+							},
+							success: function (data) {
+								// your callback here
+							},
+							error: function (error) {
+								// handle error
+							},
+							data: file,
+							cache: false,
+							contentType: false,
+							processData: false,
+							timeout: 60000
+						});
+					}
+					</script>
 				</div>
 			</div>
 		</div><br>
