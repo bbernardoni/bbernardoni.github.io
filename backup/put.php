@@ -3,7 +3,9 @@
 $putdata = fopen("php://input", "r");
 
 /* Open a file for writing */
-$fp = fopen("backup/test.txt", "w");
+$filename = "/var/www/backup".$_SERVER['REQUEST_URI'];
+echo $filename;
+$fp = fopen($filename, "w");
 
 /* Read the data 1 KB at a time
    and write to the file */
