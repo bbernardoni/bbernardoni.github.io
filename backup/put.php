@@ -1,18 +1,20 @@
 <?php
-/* PUT data comes in on the stdin stream */
-$putdata = fopen("php://input", "r");
+// Put data is read from stdin
+$putData = fopen("php://input", "r");
 
-/* Open a file for writing */
-$filename = "/var/www/backup".$_SERVER['REQUEST_URI'];
-echo $filename;
-$fp = fopen($filename, "w");
+// Open file pointer to output file
+$backupBase = "/var/www/backup"
+$filename = $backupBase.$_SERVER['REQUEST_URI'];
 
-/* Read the data 1 KB at a time
-   and write to the file */
-while ($data = fread($putdata, 1024))
-  fwrite($fp, $data);
+if(!file_exists(dirname($filename)))
+	mkdir(dirname($filename), 0755, true);
+$outFile = fopen($filename, "w");
 
-/* Close the streams */
-fclose($fp);
-fclose($putdata);
+// Copy file
+while ($data = fread($putData, 1024))
+	fwrite($outFile, $data);
+
+// Close the streams
+fclose($outFile);
+fclose($putData);
 ?>

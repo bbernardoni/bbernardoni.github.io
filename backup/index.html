@@ -77,7 +77,7 @@
 						var file = $('#fileToUpload')[0].files[0];
 						$.ajax({
 							type: "PUT",
-							url: "test.txt",
+							url: "/"+file.name,
 							xhr: function () {
 								var myXhr = $.ajaxSettings.xhr();
 								//if (myXhr.upload) {
