@@ -3,7 +3,7 @@
 $putData = fopen("php://input", "r");
 
 // Open file pointer to output file
-$backupBase = "/var/www/backup"
+$backupBase = "/var/www/backup";
 $filename = $backupBase.$_SERVER['REQUEST_URI'];
 
 if(!file_exists(dirname($filename)))
@@ -11,7 +11,7 @@ if(!file_exists(dirname($filename)))
 $outFile = fopen($filename, "w");
 
 // Copy file
-while ($data = fread($putData, 1024))
+while($data = fread($putData, 1024))
 	fwrite($outFile, $data);
 
 // Close the streams
