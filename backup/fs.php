@@ -1,4 +1,14 @@
 <?php
+// Recursive delete function
+public static function delFile($path){ 
+	if(!is_dir($path))
+		return unlink($path);
+	$files = array_diff(scandir($path), array('.','..')); 
+	foreach($files as $file)
+		delFile("$path/$file");
+	return rmdir($path); 
+}
+
 // Get filename from path info
 $backupBase = "/var/www/backup";
 $filename = $backupBase.$_SERVER['PATH_INFO'];
@@ -23,7 +33,7 @@ case 'PUT':
 	break;
 case 'DELETE':
 	// delete file
-	unlink($filename);
+	delFile($filename);
 	break;
 }
 ?>
