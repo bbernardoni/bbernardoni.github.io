@@ -1,11 +1,11 @@
 <?php
 // Recursive delete function
-function delFile($path){ 
+function delRec($path){ 
 	if(!is_dir($path))
 		return unlink($path);
 	$files = array_diff(scandir($path), array('.','..')); 
 	foreach($files as $file)
-		delFile("$path/$file");
+		delRec("$path/$file");
 	return rmdir($path); 
 }
 
@@ -33,7 +33,7 @@ case 'PUT':
 	break;
 case 'DELETE':
 	// delete file
-	delFile($filename);
+	delRec($filename);
 	break;
 }
 ?>
