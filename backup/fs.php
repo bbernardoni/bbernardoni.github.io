@@ -1,6 +1,6 @@
 <?php
 // Recursive delete function
-public static function delFile($path){ 
+function delFile($path){ 
 	if(!is_dir($path))
 		return unlink($path);
 	$files = array_diff(scandir($path), array('.','..')); 
