@@ -3,10 +3,20 @@
 function delRec($path){ 
 	if(!is_dir($path))
 		return unlink($path);
-	$files = array_diff(scandir($path), array('.','..')); 
+	$files = array_diff(scandir($path), array('.','..'));
 	foreach($files as $file)
 		delRec("$path/$file");
 	return rmdir($path); 
+}
+// Get human filesizes
+function humanFilesize($bytes) {
+	if($bytes < 1024)
+		return "$bytes B";
+	$sz = ' KMGTP';
+	$factor = floor(log($bytes, 1024));
+	$value = $bytes / pow(1024, $factor);
+	$precision = max(2-floor(log($value, 10)), 0);
+	return sprintf("%.{$precision}f ", $value).$sz[(int)$factor]."B";
 }
 
 // Get filename from path info
@@ -32,8 +42,22 @@ case 'PUT':
 	fclose($putData);
 	break;
 case 'DELETE':
-	// delete file
+	// Delete file
 	delRec($filename);
+	break;
+case 'GET':
+	// Get data
+	$data = ["files" => []];
+	$files = array_diff(scandir($filename), array('.','..')); 
+	foreach($files as $file){
+		$size = humanFilesize(filesize("$filename/$file"));
+		$time = filemtime("$filename/$file");
+		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
+	}
+
+	// Write data as JSON
+	header('Content-type: application/json');
+	echo json_encode($data);
 	break;
 }
 ?>
