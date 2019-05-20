@@ -50,6 +50,7 @@ case 'GET':
 	$data = ["files" => []];
 	$files = array_diff(scandir($filename), array('.','..')); 
 	foreach($files as $file){
+		// Get filesize
 		if(is_dir("$filename/$file")){
 			$io = popen("/usr/bin/du -sk $filename/$file", "r");
 			$bytes = fgets($io, 4096);
@@ -60,7 +61,12 @@ case 'GET':
 			$bytes = filesize("$filename/$file");
 		}
 		$size = humanFilesize($bytes);
-		$time = date("n/j/Y G:i:s", filemtime("$filename/$file"));
+		
+		// Get last modified
+		$dt = new DateTime("@".filemtime("$filename/$file"));
+		$dt->setTimeZone(new DateTimeZone("America/Chicago"));
+		$time = $dt->format("n/j/Y G:i:s");
+		
 		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
 	}
 
