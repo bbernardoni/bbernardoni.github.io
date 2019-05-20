@@ -50,7 +50,16 @@ case 'GET':
 	$data = ["files" => []];
 	$files = array_diff(scandir($filename), array('.','..')); 
 	foreach($files as $file){
-		$size = humanFilesize(filesize("$filename/$file"));
+		if(is_dir("$filename/$file")){
+			$io = popen("/usr/bin/du -sk $filename/$file", "r");
+			$bytes = fgets($io, 4096);
+			$bytes = 1024*(int)substr($bytes, 0, strpos($bytes, "\t"));
+			pclose($io);
+		}
+		else{
+			$bytes = filesize("$filename/$file");
+		}
+		$size = humanFilesize($bytes);
 		$time = date("n/j/Y G:i:s", filemtime("$filename/$file"));
 		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
 	}
