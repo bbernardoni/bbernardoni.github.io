@@ -51,7 +51,7 @@ case 'GET':
 	$files = array_diff(scandir($filename), array('.','..')); 
 	foreach($files as $file){
 		$size = humanFilesize(filesize("$filename/$file"));
-		$time = filemtime("$filename/$file");
+		$time = date("n/j/Y G:i:s", filemtime("$filename/$file"));
 		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
 	}
 
