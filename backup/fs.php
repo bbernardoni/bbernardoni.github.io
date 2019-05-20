@@ -21,7 +21,10 @@ function humanFilesize($bytes) {
 
 // Get filename from path info
 $backupBase = "/var/www/backup";
-$filename = $backupBase.$_SERVER['PATH_INFO'];
+if(isset($_SERVER['PATH_INFO']))
+	$filename = $backupBase.$_SERVER['PATH_INFO'];
+else
+	$filename = $backupBase.'/';
 
 switch($_SERVER['REQUEST_METHOD']){
 case 'PUT':
@@ -46,6 +49,9 @@ case 'DELETE':
 	delRec($filename);
 	break;
 case 'GET':
+	$timezone = "America/Chicago";
+	date_default_timezone_set($timezone);
+
 	// Get data
 	$data = ["files" => []];
 	$files = array_diff(scandir($filename), array('.','..')); 
@@ -64,7 +70,7 @@ case 'GET':
 		
 		// Get last modified
 		$dt = new DateTime("@".filemtime("$filename/$file"));
-		$dt->setTimeZone(new DateTimeZone("America/Chicago"));
+		$dt->setTimeZone(new DateTimeZone($timezone));
 		$time = $dt->format("n/j/Y G:i:s");
 		
 		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
