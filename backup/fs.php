@@ -1,5 +1,6 @@
 <?php
 // Check signin
+require_once 'vendor/autoload.php';
 $CLIENT_ID = "473922392138-v288ikuqsq22maakmldm8entgnu5cuu7.apps.googleusercontent.com";
 $client = new Google_Client(["client_id" => $CLIENT_ID]);
 $id_token = $_SERVER['HTTP_TOKEN'];
