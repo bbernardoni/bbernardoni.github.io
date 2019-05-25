@@ -143,6 +143,7 @@
 					function updateFileTable(data){
 						// setup path buttons
 						var pathBtns = document.getElementById("filePath");
+						pathBtns.innerHTML = "";
 						folders = curDir.split("/");
 						path = "";
 						for(i = 0; i < folders.length-1; i++){
@@ -152,13 +153,13 @@
 							btn.setAttribute("type", "button");
 							btn.setAttribute("class", "btn btn-default");
 							btn.setAttribute("onclick", "getFiles('"+path+"')");//esc
-							btn.appendChild(dir);
+							btn.appendChild(document.createTextNode(dir));
 							pathBtns.appendChild(btn);
 						}
 						
 						// setup table
 						var table = document.getElementById("fileTable");
-						table.innerHTML = '';
+						table.innerHTML = "";
 						for(i = 0; i < data.files.length; i++){
 							var tr = document.createElement("tr");
 							tr.setAttribute("ondblclick", "dblClick('"+data.files[i].name+"',"+(data.files[i].type=="folder")+")");//esc
