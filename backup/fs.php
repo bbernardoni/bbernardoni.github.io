@@ -1,13 +1,19 @@
 <?php
+// set default timezone
+$timezone = "America/Chicago";
+date_default_timezone_set($timezone);
+
 // Check signin
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 $CLIENT_ID = "473922392138-v288ikuqsq22maakmldm8entgnu5cuu7.apps.googleusercontent.com";
 $client = new Google_Client(["client_id" => $CLIENT_ID]);
 $id_token = $_SERVER['HTTP_TOKEN'];
 $payload = $client->verifyIdToken($id_token);
 if ($payload) {
 	$userid = $payload['sub'];
-	echo $userid;
+	if($userid != "116801955654281384888"){
+		exit();
+	}
 }
 
 // Recursive delete function
@@ -60,9 +66,6 @@ case 'DELETE':
 	delRec($filename);
 	break;
 case 'GET':
-	$timezone = "America/Chicago";
-	date_default_timezone_set($timezone);
-
 	// Get data
 	$data = ["files" => []];
 	$files = array_diff(scandir($filename), array('.','..'));
