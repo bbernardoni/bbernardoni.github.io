@@ -51,6 +51,7 @@
 			<div class="row" id="backupUI" style="display: none;">
 				<div class="col-md-12">
 					<br>
+					<button type="button" class="btn btn-default pull-right" onclick="signOut()">Sign Out</button>
 					<div class="btn-group" id="filePath"></div>
 					<table class="table table-hover">
 						<thead>
@@ -62,7 +63,6 @@
 						</thead>
 						<tbody id="fileTable"></tbody>
 					</table>
-					<a href="#" onclick="signOut();">Sign out</a>
 					<input type="file" name="fileToUpload" id="fileToUpload" multiple>
 					<a href="#" onclick="putTest();">Put</a>
 				</div>
