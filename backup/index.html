@@ -102,36 +102,39 @@
 		function pickFiles(){
 			var input = document.createElement('input');
 			input.type = "file";
-			input.multiple = "";
+			input.multiple = true;
 			input.onchange = uploadFiles;
 			input.click();
 		}
 		function uploadFiles() {
-			var file = this.files[0];
-			console.log(file);
-			$.ajax({
-				type: "PUT",
-				url: "/backup/fs.php"+curDir+file.name,
-				headers: {"Token": getToken()},
-				xhr: function () {
-					var myXhr = $.ajaxSettings.xhr();
-					//if (myXhr.upload) {
-					//	myXhr.upload.addEventListener('progress', that.progressHandling, false);
-					//}
-					return myXhr;
-				},
-				success: function (data) {
-					// your callback here
-				},
-				error: function (error) {
-					// handle error
-				},
-				data: file,
-				cache: false,
-				contentType: false,
-				processData: false,
-				timeout: 60000
-			});
+			var id_token = getToken();
+			var uploadDir = curDir;
+			for(i = 0; i < this.files.length; i++){
+				var file = this.files[i];
+				$.ajax({
+					type: "PUT",
+					url: "/backup/fs.php"+uploadDir+file.name,
+					headers: {"Token": id_token},
+					xhr: function () {
+						var myXhr = $.ajaxSettings.xhr();
+						//if (myXhr.upload) {
+						//	myXhr.upload.addEventListener('progress', that.progressHandling, false);
+						//}
+						return myXhr;
+					},
+					success: function (data) {
+						getFiles(uploadDir);
+					},
+					error: function (error) {
+						// handle error
+					},
+					data: file,
+					cache: false,
+					contentType: false,
+					processData: false,
+					timeout: 60000
+				});
+			}
 		}
 		
 		// file view
