@@ -111,8 +111,19 @@
 					</script>
 		
 					<script type="text/javascript">
-					function createTD(text){
-						var td = document.createElement("td")
+					function createTD(text, type){
+						var td = document.createElement("td");
+						if(typeof type !== "undefined"){
+							var iconStr = "file-o";
+							if(type == "folder")
+								iconStr = "folder-o";
+							//else if(type == "folder")
+							//	iconStr = "folder-o";
+							
+							var icon = document.createElement("i");
+							icon.setAttribute("class", "fa fa-"+iconStr+" fa-fw fa-lg");
+							td.appendChild(icon);
+						}
 						td.appendChild(document.createTextNode(text));
 						return td;
 					}

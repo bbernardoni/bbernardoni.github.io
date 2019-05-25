@@ -73,7 +73,13 @@ case 'GET':
 		$dt->setTimeZone(new DateTimeZone($timezone));
 		$time = $dt->format("n/j/Y G:i:s");
 		
-		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size];
+		// Get type
+		if(is_dir("$filename/$file"))
+			$type = "folder";
+		else
+			$type = pathinfo($file, PATHINFO_EXTENSION);
+		
+		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size, "type"=>$type];
 	}
 
 	// Write data as JSON
