@@ -42,7 +42,13 @@
 	<body>
 		<div id="nav"></div>
 		<div class="container">
-			<div class="row">
+			<div class="row" id="signInUI">
+				<div class="col-md-12">
+					<br>
+					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+				</div>
+			</div>
+			<div class="row" id="backupUI" style="display: none;">
 				<div class="col-md-12">
 					<br>
 					<div class="btn-group" id="filePath"></div>
@@ -56,152 +62,146 @@
 						</thead>
 						<tbody id="fileTable"></tbody>
 					</table>
-					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-					<script>
-					function onSignIn(googleUser) {
-						// Useful data for your client-side scripts:
-						var profile = googleUser.getBasicProfile();
-						console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-						console.log('Full Name: ' + profile.getName());
-						console.log('Given Name: ' + profile.getGivenName());
-						console.log('Family Name: ' + profile.getFamilyName());
-						console.log("Image URL: " + profile.getImageUrl());
-						console.log("Email: " + profile.getEmail());
-
-						// The ID token you need to pass to your backend:
-						var id_token = googleUser.getAuthResponse().id_token;
-						console.log("ID Token: " + id_token);
-					}
-					</script>
 					<a href="#" onclick="signOut();">Sign out</a>
-					<script>
-					function signOut() {
-						var auth2 = gapi.auth2.getAuthInstance();
-						auth2.signOut().then(function () {
-							console.log('User signed out.');
-						});
-					}
-					</script>
 					<input type="file" name="fileToUpload" id="fileToUpload" multiple>
 					<a href="#" onclick="putTest();">Put</a>
-					<script>
-					var loading = false;
-					var curDir = "/";
-					function getToken() {
-						var auth2 = gapi.auth2.getAuthInstance();
-						return auth2.currentUser.get().getAuthResponse().id_token;
-					}
-					function putTest() {
-						var file = $('#fileToUpload')[0].files[0];
-						$.ajax({
-							type: "PUT",
-							url: "/backup/fs.php"+curDir+file.name,
-							headers: {"Token": getToken()},
-							xhr: function () {
-								var myXhr = $.ajaxSettings.xhr();
-								//if (myXhr.upload) {
-								//	myXhr.upload.addEventListener('progress', that.progressHandling, false);
-								//}
-								return myXhr;
-							},
-							success: function (data) {
-								// your callback here
-							},
-							error: function (error) {
-								// handle error
-							},
-							data: file,
-							cache: false,
-							contentType: false,
-							processData: false,
-							timeout: 60000
-						});
-					}
-					
-					function createTD(text, type){
-						var td = document.createElement("td");
-						if(typeof type !== "undefined"){
-							var iconStr = "file-o";
-							if(type == "folder")
-								iconStr = "folder-o";
-							//else if(type == "folder")
-							//	iconStr = "folder-o";
-							// file-audio-o
-							// file-code-o
-							// file-video-o
-							// file-archive-o
-							// file-image-o
-							// file-powerpoint-o
-							// file-excel-o
-							// file-word-o
-							// file-pdf-o
-							// file-text-o
-							
-							var icon = document.createElement("i");
-							icon.setAttribute("class", "fa fa-"+iconStr+" fa-fw fa-lg");
-							td.appendChild(icon);
-						}
-						td.appendChild(document.createTextNode(text));
-						return td;
-					}
-					function updateFileTable(data){
-						// setup path buttons
-						var pathBtns = document.getElementById("filePath");
-						pathBtns.innerHTML = "";
-						folders = curDir.split("/");
-						path = "";
-						for(i = 0; i < folders.length-1; i++){
-							var dir = folders[i]+"/";
-							path += dir;
-							var btn = document.createElement("button");
-							btn.setAttribute("type", "button");
-							btn.setAttribute("class", "btn btn-default");
-							btn.setAttribute("onclick", "getFiles("+JSON.stringify(path)+")");
-							btn.appendChild(document.createTextNode(dir));
-							pathBtns.appendChild(btn);
-						}
-						
-						// setup table
-						var table = document.getElementById("fileTable");
-						table.innerHTML = "";
-						for(i = 0; i < data.files.length; i++){
-							var tr = document.createElement("tr");
-							tr.setAttribute("ondblclick", "dblClick("+JSON.stringify(data.files[i].name)+","+(data.files[i].type=="folder")+")");
-							tr.appendChild(createTD(data.files[i].name, data.files[i].type));
-							tr.appendChild(createTD(data.files[i].lastModified));
-							tr.appendChild(createTD(data.files[i].size));
-							table.appendChild(tr);
-						}
-					}
-					function getFiles(path){
-						loading = true;
-						curDir = path;
-						$.ajax({
-							type: "GET",
-							url: "/backup/fs.php"+curDir,
-							headers: {"Token": getToken()},
-							success: function (data) {
-								loading = false;
-								updateFileTable(data);
-							},
-							error: function (error) {
-								loading = false;
-								// handle error
-							},
-							cache: false
-						});
-					}
-					function dblClick(file, isFolder){
-						if(loading)
-							return;
-						if(isFolder)
-							getFiles(curDir + file + "/");
-					}
-					
-					getFiles("/");
-					</script>
 				</div>
 			</div>
 		</div><br>
+		<script>
+		// global vars
+		var loading = false;
+		var curDir = "/";
+		
+		function onSignIn(googleUser) {
+			//console.log("ID Token: " + googleUser.getAuthResponse().id_token);
+			getFiles("/");
+			
+			// switch views
+			document.getElementById("signInUI").style.display = 'none';
+			document.getElementById("backupUI").style.display = 'block';
+		}
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
+			
+			// switch views
+			document.getElementById("signInUI").style.display = 'block';
+			document.getElementById("backupUI").style.display = 'none';
+		}
+		
+		function getToken() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			return auth2.currentUser.get().getAuthResponse().id_token;
+		}
+		function putTest() {
+			var file = $('#fileToUpload')[0].files[0];
+			$.ajax({
+				type: "PUT",
+				url: "/backup/fs.php"+curDir+file.name,
+				headers: {"Token": getToken()},
+				xhr: function () {
+					var myXhr = $.ajaxSettings.xhr();
+					//if (myXhr.upload) {
+					//	myXhr.upload.addEventListener('progress', that.progressHandling, false);
+					//}
+					return myXhr;
+				},
+				success: function (data) {
+					// your callback here
+				},
+				error: function (error) {
+					// handle error
+				},
+				data: file,
+				cache: false,
+				contentType: false,
+				processData: false,
+				timeout: 60000
+			});
+		}
+		
+		function createTD(text, type){
+			var td = document.createElement("td");
+			if(typeof type !== "undefined"){
+				var iconStr = "file-o";
+				if(type == "folder")
+					iconStr = "folder-o";
+				//else if(type == "folder")
+				//	iconStr = "folder-o";
+				// file-audio-o
+				// file-code-o
+				// file-video-o
+				// file-archive-o
+				// file-image-o
+				// file-powerpoint-o
+				// file-excel-o
+				// file-word-o
+				// file-pdf-o
+				// file-text-o
+				
+				var icon = document.createElement("i");
+				icon.setAttribute("class", "fa fa-"+iconStr+" fa-fw fa-lg");
+				td.appendChild(icon);
+			}
+			td.appendChild(document.createTextNode(text));
+			return td;
+		}
+		function updateFileTable(data){
+			// setup path buttons
+			var pathBtns = document.getElementById("filePath");
+			pathBtns.innerHTML = "";
+			folders = curDir.split("/");
+			path = "";
+			for(i = 0; i < folders.length-1; i++){
+				var dir = folders[i]+"/";
+				path += dir;
+				var btn = document.createElement("button");
+				btn.setAttribute("type", "button");
+				btn.setAttribute("class", "btn btn-default");
+				btn.setAttribute("onclick", "getFiles("+JSON.stringify(path)+")");
+				btn.appendChild(document.createTextNode(dir));
+				pathBtns.appendChild(btn);
+			}
+			
+			// setup table
+			var table = document.getElementById("fileTable");
+			table.innerHTML = "";
+			for(i = 0; i < data.files.length; i++){
+				var tr = document.createElement("tr");
+				tr.setAttribute("ondblclick", "dblClick("+JSON.stringify(data.files[i].name)+","+(data.files[i].type=="folder")+")");
+				tr.appendChild(createTD(data.files[i].name, data.files[i].type));
+				tr.appendChild(createTD(data.files[i].lastModified));
+				tr.appendChild(createTD(data.files[i].size));
+				table.appendChild(tr);
+			}
+		}
+		function getFiles(path){
+			loading = true;
+			curDir = path;
+			$.ajax({
+				type: "GET",
+				url: "/backup/fs.php"+curDir,
+				headers: {"Token": getToken()},
+				success: function (data) {
+					loading = false;
+					updateFileTable(data);
+				},
+				error: function (error) {
+					loading = false;
+					// handle error
+				},
+				cache: false
+			});
+		}
+		function dblClick(file, isFolder){
+			if(loading)
+				return;
+			if(isFolder)
+				getFiles(curDir + file + "/");
+		}
+		</script>
 	</body>
 </html>
