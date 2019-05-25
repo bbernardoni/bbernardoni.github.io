@@ -54,32 +54,42 @@ case 'GET':
 
 	// Get data
 	$data = ["files" => []];
-	$files = array_diff(scandir($filename), array('.','..')); 
+	$files = array_diff(scandir($filename), array('.','..'));
 	foreach($files as $file){
-		// Get filesize
 		if(is_dir("$filename/$file")){
+			// Get filesize
 			$io = popen("/usr/bin/du -sk $filename/$file", "r");
 			$bytes = fgets($io, 4096);
 			$bytes = 1024*(int)substr($bytes, 0, strpos($bytes, "\t"));
+			$size = humanFilesize($bytes);
 			pclose($io);
-		}
-		else{
-			$bytes = filesize("$filename/$file");
-		}
-		$size = humanFilesize($bytes);
 		
-		// Get last modified
-		$dt = new DateTime("@".filemtime("$filename/$file"));
-		$dt->setTimeZone(new DateTimeZone($timezone));
-		$time = $dt->format("n/j/Y G:i:s");
+			// Get last modified
+			$dt = new DateTime("@".filemtime("$filename/$file"));
+			$dt->setTimeZone(new DateTimeZone($timezone));
+			$time = $dt->format("n/j/Y G:i:s");
 		
-		// Get type
-		if(is_dir("$filename/$file"))
+			// Get type
 			$type = "folder";
-		else
-			$type = pathinfo($file, PATHINFO_EXTENSION);
+			
+			$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size, "type"=>$type];
+		}
+	}
+	foreach($files as $file){
+		if(!is_dir("$filename/$file")){
+			// Get filesize
+			$size = humanFilesize(filesize("$filename/$file"));
 		
-		$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size, "type"=>$type];
+			// Get last modified
+			$dt = new DateTime("@".filemtime("$filename/$file"));
+			$dt->setTimeZone(new DateTimeZone($timezone));
+			$time = $dt->format("n/j/Y G:i:s");
+			
+			// Get type
+			$type = pathinfo($file, PATHINFO_EXTENSION);
+			
+			$data["files"][] = ["name"=>$file, "lastModified"=>$time, "size"=>$size, "type"=>$type];
+		}
 	}
 
 	// Write data as JSON
