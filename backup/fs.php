@@ -12,8 +12,13 @@ $payload = $client->verifyIdToken($id_token);
 if ($payload) {
 	$userid = $payload['sub'];
 	if($userid != "116801955654281384888"){
+		// exit if not me
 		exit();
 	}
+}
+else{
+	// exit if invalid token
+	exit();
 }
 
 // Recursive delete function
