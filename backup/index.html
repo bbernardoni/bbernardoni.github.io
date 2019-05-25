@@ -58,7 +58,6 @@
 					</table>
 					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 					<script>
-					var id_token;
 					function onSignIn(googleUser) {
 						// Useful data for your client-side scripts:
 						var profile = googleUser.getBasicProfile();
@@ -70,7 +69,7 @@
 						console.log("Email: " + profile.getEmail());
 
 						// The ID token you need to pass to your backend:
-						id_token = googleUser.getAuthResponse().id_token;
+						var id_token = googleUser.getAuthResponse().id_token;
 						console.log("ID Token: " + id_token);
 					}
 					</script>
@@ -88,12 +87,16 @@
 					<script>
 					var loading = false;
 					var curDir = "/";
+					function getToken() {
+						var auth2 = gapi.auth2.getAuthInstance();
+						return auth2.currentUser.get().getAuthResponse().id_token;
+					}
 					function putTest() {
 						var file = $('#fileToUpload')[0].files[0];
 						$.ajax({
 							type: "PUT",
 							url: "/backup/fs.php"+curDir+file.name,
-							headers: {"Token": id_token},
+							headers: {"Token": getToken()},
 							xhr: function () {
 								var myXhr = $.ajaxSettings.xhr();
 								//if (myXhr.upload) {
@@ -176,7 +179,7 @@
 						$.ajax({
 							type: "GET",
 							url: "/backup/fs.php"+curDir,
-							headers: {"Token": id_token},
+							headers: {"Token": getToken()},
 							success: function (data) {
 								loading = false;
 								updateFileTable(data);
