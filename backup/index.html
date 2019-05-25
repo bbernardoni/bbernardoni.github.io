@@ -111,6 +111,7 @@
 					</script>
 		
 					<script type="text/javascript">
+					var curDir = "/";
 					function createTD(text, type){
 						var td = document.createElement("td");
 						if(typeof type !== "undefined"){
@@ -132,24 +133,34 @@
 						table.innerHTML = '';
 						for(i = 0; i < data.files.length; i++){
 							var tr = document.createElement("tr");
+							tr.setAttribute("ondblclick", "dblClick('"+data.files[i].name+"',"+(data.files[i].type=="folder")+")");
 							tr.appendChild(createTD(data.files[i].name, data.files[i].type));
 							tr.appendChild(createTD(data.files[i].lastModified));
 							tr.appendChild(createTD(data.files[i].size));
 							table.appendChild(tr);
 						}
 					}
+					function getFiles(){
+						$.ajax({
+							type: "GET",
+							url: "/backup/fs.php"+curDir,
+							success: function (data) {
+								fillFileTable(data);
+							},
+							error: function (error) {
+								// handle error
+							},
+							cache: false
+						});
+					}
+					function dblClick(file, isFolder){
+						if(isFolder){
+							curDir += file + "/";
+							getFiles();
+						}
+					}
 					
-					$.ajax({
-						type: "GET",
-						url: "/backup/fs.php/",
-						success: function (data) {
-							fillFileTable(data);
-						},
-						error: function (error) {
-							// handle error
-						},
-						cache: false
-					});
+					getFiles();
 					</script>
 				</div>
 			</div>
