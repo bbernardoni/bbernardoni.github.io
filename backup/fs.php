@@ -1,4 +1,14 @@
 <?php
+// Check signin
+$CLIENT_ID = "473922392138-v288ikuqsq22maakmldm8entgnu5cuu7.apps.googleusercontent.com";
+$client = new Google_Client(["client_id" => $CLIENT_ID]);
+$id_token = $_SERVER['HTTP_TOKEN'];
+$payload = $client->verifyIdToken($id_token);
+if ($payload) {
+	$userid = $payload['sub'];
+	echo $userid;
+}
+
 // Recursive delete function
 function delRec($path){ 
 	if(!is_dir($path))
