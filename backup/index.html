@@ -48,7 +48,7 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Last Modified</th> 
+								<th>Last Modified</th>
 								<th>Size</th>
 							</tr>
 						</thead>
@@ -132,7 +132,7 @@
 						table.innerHTML = '';
 						for(i = 0; i < data.files.length; i++){
 							var tr = document.createElement("tr");
-							tr.appendChild(createTD(data.files[i].name));
+							tr.appendChild(createTD(data.files[i].name, data.files[i].type));
 							tr.appendChild(createTD(data.files[i].lastModified));
 							tr.appendChild(createTD(data.files[i].size));
 							table.appendChild(tr);
