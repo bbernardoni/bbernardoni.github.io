@@ -84,6 +84,9 @@ hr {
 	margin-top: 10px;
     margin-bottom: 10px;
 }
+.pad-but-bot {
+    margin-bottom: 10px;
+}
 .lgray-back {
 	background-color: #d0d0d0
 }
