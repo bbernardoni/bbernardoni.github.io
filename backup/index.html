@@ -145,7 +145,7 @@
 						var pathBtns = document.getElementById("filePath");
 						folders = curDir.split("/");
 						path = "";
-						while(i = 0; i < folders.length-1; i++){
+						for(i = 0; i < folders.length-1; i++){
 							var dir = folders[i]+"/";
 							path += dir;
 							var btn = document.createElement("button");
