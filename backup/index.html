@@ -52,7 +52,7 @@
 				<div class="col-md-12">
 					<br>
 					<div class="btn-group pull-right pad-but-bot">
-						<button type="button" class="btn btn-default" onclick="uploadFiles()">Upload Files</button>
+						<button type="button" class="btn btn-default" onclick="pickFiles()">Upload Files</button>
 						<button type="button" class="btn btn-default" onclick="signOut()">Sign Out</button>
 					</div>
 					<div class="btn-group" id="filePath"></div>
@@ -66,7 +66,6 @@
 						</thead>
 						<tbody id="fileTable"></tbody>
 					</table>
-					<input type="file" name="fileToUpload" id="fileToUpload" multiple>
 				</div>
 			</div>
 		</div><br>
@@ -100,8 +99,16 @@
 		}
 		
 		// file uploader
+		function pickFiles(){
+			var input = document.createElement('input');
+			input.type = "file";
+			input.multiple = "";
+			input.onchange = uploadFiles;
+			input.click();
+		}
 		function uploadFiles() {
-			var file = $('#fileToUpload')[0].files[0];
+			var file = this.files[0];
+			console.log(file);
 			$.ajax({
 				type: "PUT",
 				url: "/backup/fs.php"+curDir+file.name,
